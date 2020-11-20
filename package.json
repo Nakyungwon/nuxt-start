@@ -3,17 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cp ./.env.local ./.env && HOST=0.0.0.0 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
+    "deploy:dev": "cp ./.env.dev ./.env && yarn build && aws s3 cp ./dist s3://na-nuxt-test.com --recursive --profile saecomaster",
+    "deploy:prod": "",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/bootstrap": "^0.0.1",
+    "@nuxtjs/bootstrap-vue": "^2.0.4",
+    "@nuxtjs/device": "^1.2.7",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
+    "@vue/cli": "^4.5.9",
+    "@vue/cli-init": "^4.5.9",
+    "bootstrap-vue": "^2.19.0",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "nuxt": "^2.14.6"
@@ -27,7 +37,9 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "node-sass": "^5.0.0",
     "prettier": "^2.1.2",
+    "sass-loader": "^10.1.0",
     "stylelint": "^13.7.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0"

@@ -1,0 +1,16 @@
+<style lang="scss" scoped>
+.main {
+  max-width: 750px;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+
+  .container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+</style>
