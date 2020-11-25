@@ -1,11 +1,33 @@
 <template>
-  <div class="main">
-    <div class="container"></div>
+  <div>
+    <MainNav />
+    <div class="main">
+      <div class="container">
+        <section class="top"></section>
+        <section class="middle">
+          <div class="half_divide">
+            <div></div>
+            <div>
+              <b-button
+                squared
+                variant="outline-secondary"
+                class="regist_button"
+                >등록</b-button
+              >
+            </div>
+          </div>
+          <div><b-table hover :items="items" :fields="fields"></b-table></div>
+        </section>
+        <section class="bottom"></section>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import MainNav from '@/components/nav/MainNavComp'
 export default {
+  components: { MainNav },
   data() {
     return {
       form: {
@@ -22,6 +44,13 @@ export default {
         'Corn',
       ],
       show: true,
+      fields: ['age', 'first_name', 'last_name'],
+      items: [
+        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+        { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+        { age: 38, first_name: 'Jami', last_name: 'Carney' },
+      ],
     }
   },
   methods: {
@@ -31,12 +60,10 @@ export default {
     },
     onReset(evt) {
       evt.preventDefault()
-      // Reset our form values
       this.form.email = ''
       this.form.name = ''
       this.form.food = null
       this.form.checked = []
-      // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {
         this.show = true
@@ -46,49 +73,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.main {
-  max-width: 750px;
-  margin: 0 auto;
-  margin-left: auto;
-  margin-right: auto;
-
-  .container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-}
-/*.container {*/
-/*  margin: 0 auto;*/
-/*  min-height: 100vh;*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*  text-align: center;*/
-/*}*/
-
-/*.title {*/
-/*  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,*/
-/*    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;*/
-/*  display: block;*/
-/*  font-weight: 300;*/
-/*  font-size: 100px;*/
-/*  color: #35495e;*/
-/*  letter-spacing: 1px;*/
-/*}*/
-
-/*.subtitle {*/
-/*  font-weight: 300;*/
-/*  font-size: 42px;*/
-/*  color: #526488;*/
-/*  word-spacing: 5px;*/
-/*  padding-bottom: 15px;*/
-/*}*/
-
-/*.links {*/
-/*  padding-top: 15px;*/
-/*}*/
-</style>
+<style lang="scss" scoped></style>

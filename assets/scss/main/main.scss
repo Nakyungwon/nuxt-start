@@ -1,4 +1,11 @@
-<style lang="scss" scoped>
+*{
+  font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",helvetica,"Apple SD Gothic Neo",sans-serif;
+}
+
+.modal-open {
+    padding-right: 0px !important;
+}
+
 .main {
   max-width: 750px;
   margin: 0 auto;
@@ -12,5 +19,30 @@
     align-items: center;
     text-align: center;
   }
+  section.middle{
+    width: 100%;
+  }
+  div {
+    width: 100%;
+    margin: 10px 10px;
+  }
+  div.half_divide{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    div{
+      width: auto;
+      display: inline-block;
+    }
+    .regist_button{
+      color: #6c757d;
+      border-color:#6c757d;
+    }
+    .regist_button:hover{
+      color: white;
+    }
+  }
 }
-</style>
