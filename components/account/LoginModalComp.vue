@@ -1,8 +1,9 @@
+<script></script>
 <template>
   <b-modal
     id="login_modal"
     ref="modal"
-    centered="true"
+    centered
     title="LogIn"
     hide-footer
     @show="resetModal"
@@ -37,16 +38,16 @@
           required
         ></b-form-input>
       </b-form-group>
-      <b-button class="mt-3" variant="outline-danger" block @click="hideModal"
-        >Close Me</b-button
+      <b-button class="mt-3" variant="outline-dark" block @click="resetModal"
+        >Login</b-button
       >
-      <b-button
-        class="mt-2"
-        variant="outline-warning"
-        block
-        @click="toggleModal"
-        >Toggle Me</b-button
+      <b-button class="mt-3" variant="outline-dark" block @click="resetModal"
+        >Close</b-button
       >
+      <div class="social_login">
+        <img width="100%" src="~/static/socialLogIn/naver.PNG" />
+      </div>
+      <div id="naverIdLogin"></div>
     </form>
   </b-modal>
 </template>
@@ -64,6 +65,18 @@ export default {
       submittedNames: [],
     }
   },
+  mounted() {
+    const naverLogin = new naver.LoginWithNaverId({
+      clientId: '클라이언트ID',
+      callbackUrl: `로그인콜백페이지`,
+      isPopup: false,
+      loginButton: {
+        color: 'green',
+        type: 3,
+        height: 60,
+      },
+    })
+  },
   methods: {
     checkFormValidity() {
       const valid = this.$refs.form.checkValidity()
@@ -77,6 +90,7 @@ export default {
       this.userPassword = ''
       this.userIdState = null
       this.userPasswordState = null
+      this.$bvModal.hide('login_modal')
     },
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault()
@@ -105,7 +119,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.modal_inputs {
-  color: white !important;
+//.mt-3 {
+//  color: #28a745;
+//}
+//.mt-3:hover {
+//  color: white;
+//}
+.social_login {
+  height: 24px;
 }
 </style>

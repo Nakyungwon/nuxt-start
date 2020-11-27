@@ -18,6 +18,11 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js',
+      },
+    ],
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)

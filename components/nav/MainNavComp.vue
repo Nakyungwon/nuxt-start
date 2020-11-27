@@ -6,9 +6,7 @@
         >Login</b-navbar-brand
       >
     </b-navbar>
-    <div class="modal_area">
-      <loginModal :pdata="title"></loginModal>
-    </div>
+    <loginModal :pdata="title"></loginModal>
   </div>
 </template>
 
