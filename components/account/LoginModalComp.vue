@@ -45,7 +45,7 @@
         >Close</b-button
       >
       <div class="social_login">
-        <img width="100%" src="~/static/socialLogIn/naver.PNG" />
+        <img width="100%" height="100%" src="~/static/socialLogIn/naver.PNG" />
       </div>
       <div id="naverIdLogin"></div>
     </form>
@@ -126,6 +126,7 @@ export default {
 //  color: white;
 //}
 .social_login {
-  height: 24px;
+  height: 37px;
+  margin-top: 16px;
 }
 </style>
