@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import MainNav from '@/components/nav/MainNavComp'
+// import MainNav from '@/components/nav/MainNavComp'
+import MainNav from '@/template/MainNavTemplate'
 export default {
   components: { MainNav },
   data() {

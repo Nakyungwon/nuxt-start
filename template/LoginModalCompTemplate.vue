@@ -11,40 +11,8 @@
       @hidden="resetModal"
     >
       <form ref="form">
-        <ValidationProvider rules="required|email" mode="eager" name="ID">
-          <b-form-group slot-scope="{ valid, errors }">
-            <b-form-input
-              id="ID-input"
-              v-model="userId"
-              :state="errors[0] ? false : valid ? true : null"
-              label="Name"
-              placeholder="ID"
-              required
-            ></b-form-input>
-            <b-form-invalid-feedback>
-              {{ errors[0] }}
-            </b-form-invalid-feedback>
-          </b-form-group>
-        </ValidationProvider>
-
-        <ValidationProvider rules="required" mode="eager" name="password">
-          <b-form-group
-            slot-scope="{ valid, errors }"
-            label-for="password-input"
-          >
-            <b-form-input
-              id="password-input"
-              v-model="userPassword"
-              placeholder="Password"
-              type="password"
-              :state="errors[0] ? false : valid ? true : null"
-              required
-            ></b-form-input>
-            <b-form-invalid-feedback>
-              {{ errors[0] }}
-            </b-form-invalid-feedback>
-          </b-form-group>
-        </ValidationProvider>
+        <!--        <inputComp v-model="userId" v-bind="bind_login" />-->
+        <!--        <inputComp v-model="userPassword" v-bind="bind_login" />-->
         <b-button class="mt-3" variant="outline-dark" block @click="onSubmit"
           >Login</b-button
         >
@@ -65,12 +33,32 @@
 </template>
 
 <script>
+import inputComp from '@/components/input/inputComp'
 export default {
   name: 'LoginModalComp',
+  components: { inputComp: inputComp },
   data() {
     return {
       userId: '',
       userPassword: '',
+      bind_login: [
+        {
+          inputType: 'id',
+          rules: 'required|email',
+          mode: 'eager',
+          name: 'ID',
+          placeholder: 'ID',
+          // vmodel: userId,
+        },
+        {
+          inputType: 'password',
+          rules: 'required',
+          mode: 'eager',
+          name: 'password',
+          placeholder: 'password',
+          // vmodel: userPassword,
+        },
+      ],
       submittedNames: {},
     }
   },
@@ -119,6 +107,9 @@ export default {
       // })
     },
     async onSubmit() {
+      console.log('-------------------')
+      console.log(this.userId)
+      console.log('-------------------')
       const isValid = await this.$refs.observer.validate()
       if (!isValid) return
       this.submittedNames['userId'] = this.userId

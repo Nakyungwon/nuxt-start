@@ -54,12 +54,47 @@ export default {
   css: ['@/assets/scss/main/main.scss'],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    // baseURL: process.env.BASE_URL,
+    // retry: { retries: 3 },
+    proxy: true,
+    // proxyHeaders: false,
+    // credentials: false,
+  },
+  proxy: {
+    // '/api/': 'http://www.naver.com', // proxy url
+  },
+  header: {
+    common: {
+      Accept: 'application/json, text/plain, */*',
+      // Accept: 'application/json, text/plain, Access-Control-Allow-Origin',
+    },
+    delete: {},
+    get: {},
+    head: {},
+    post: {},
+    put: {},
+    patch: {},
+  },
+
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL,
+  //   },
+  // },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.BASE_URL,
+  //   },
+  // },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: ['vee-validate/dist/rules'],
   },
 
-  serverMiddleware: [{ path: '/api', handler: '~/api/index.js' }],
+  serverMiddleware: [
+    { path: '/api', handler: '~/api/index.js' },
+    { path: '/account', handler: '~/api/account/index.js' },
+  ],
 }
