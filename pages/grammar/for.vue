@@ -1,7 +1,9 @@
 <template>
   <div class="for">
     <span>---------------</span>
-    <a v-for="link in links" :key="link" :href="link.url">{{ link.url }}</a>
+    <a v-for="(link, index) in links" :key="index" :href="link.url">{{
+      link.url
+    }}</a>
     <span>---------------</span>
   </div>
 </template>

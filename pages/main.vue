@@ -36,6 +36,17 @@
     <h1>{{ message }}</h1>
     <!--    v-bind:msg=message로 넘겨서 @messagCompChanged emit과 맞춘다 -->
     <inputText :msg="message" @messagCompChanged="message = $event"></inputText>
+    <inputListener
+      :value:="listenerMessage"
+      test-a="sword"
+      test-b="blade"
+      :type="message"
+      @blur="listenerBlur"
+    ></inputListener>
+    <!--    <input @blur="console.log($event)" />-->
+    <!--      v-model="listenerMessage"-->
+    <!--    @input="listenerInput"-->
+    <convention data-issue="aaaa"></convention>
   </div>
 </template>
 
@@ -44,15 +55,25 @@
 import inputCompTest from '@/components/input/inputCompTest'
 import ForComp from '@/pages/grammar/for'
 import inputText from '@/pages/grammar/inputText'
+import inputListener from '@/pages/grammar/listener'
+import convention from '@/pages/grammar/convention'
 
 import Table from '@/components/Table'
 export default {
   name: 'Main',
-  components: { Table, inputCompTest, ForComp, inputText },
+  components: {
+    Table,
+    inputCompTest,
+    ForComp,
+    inputText,
+    inputListener,
+    convention,
+  },
   // components: { NavigationTest },
   data() {
     return {
-      message: '',
+      message: 'aa',
+      listenerMessage: '',
       txt: process.env.STAGE,
       username: '',
       userpassword: 'a',
@@ -70,6 +91,16 @@ export default {
   methods: {
     Tlqkf($evn) {
       console.log(this.username)
+    },
+    listenerInput(value) {
+      console.log(this.listenerMessage)
+      this.listenerMessage = value
+    },
+    listenerBlur($value) {
+      // console.log($value)
+      console.log(this.listenerMessage)
+      console.log($value.target.value)
+      // console.log(this.listenerMessage)
     },
     async test() {
       const r = await this.$axios.get('/api')

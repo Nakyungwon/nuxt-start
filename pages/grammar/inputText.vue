@@ -23,4 +23,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  border: solid 1px black;
+}
+</style>

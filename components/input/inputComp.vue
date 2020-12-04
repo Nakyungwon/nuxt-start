@@ -1,10 +1,9 @@
 <template>
   <!--  <ValidationProvider rules="required|email" mode="eager" name="ID">-->
-  <ValidationProvider
-    :rules="validationRules"
-    :mode="validationMode"
-    :name="validationName"
-  >
+  <ValidationProvider v-bind="$attrs.validation">
+    <!--    :rules="validationRules"-->
+    <!--    :mode="validationMode"-->
+    <!--    :name="validationName"-->
     <!--    <b-form-group slot-scope="{ valid, errors }">-->
     <!--      <b-form-input-->
     <!--        :id="inputID"-->
@@ -24,7 +23,17 @@
 
     <b-form-group slot-scope="{ valid, errors }">
       <!--      <b-form-input v-bind="$attrs" @input="vmodelChange"></b-form-input>-->
-      <b-form-input v-on="$listeners"></b-form-input>
+      <b-form-input
+        v-bind="$attrs.input"
+        :state="errors[0] ? false : valid ? true : null"
+        v-on="$listeners"
+      ></b-form-input>
+      <!--      :id="inputId"-->
+      <!--        :value="value"-->
+      <!--      :label="inputLabel"-->
+      <!--        :placeholder="inputPlaceholder"-->
+      <!--        :required="inputRequired"-->
+      <!--        :type="inputType"-->
       <!--      v-model="vModelValue"-->
       <!--      :v-model="vmodel"-->
       <!--label="Name"-->
@@ -59,7 +68,7 @@ export default {
         return ''
       },
     },
-    vmodel: {
+    value: {
       type: String,
       default: () => {
         return ''
@@ -77,24 +86,45 @@ export default {
         return 'text'
       },
     },
-  },
-  data() {
-    return {
-      // mutableList: JSON.parse(this.list),
-      inputID: '',
-      inputValue: '',
-    }
-  },
-  mounted() {
-    this.inputID = this.$props.validationName + '-input'
-    // this.vModelValue = this.$props.value
-  },
-  methods: {
-    vmodelChange($event) {
-      console.log($event)
-      this.$emit('update-value', this.inputValue)
+    inputLabel: {
+      default: () => {
+        return 'label'
+      },
+    },
+    inputId: {
+      default: () => {
+        return 'ID'
+      },
+    },
+    inputPlaceholder: {
+      default: () => {
+        return 'placeholder'
+      },
+    },
+    inputRequired: {
+      type: Boolean,
+      default: () => {
+        return false
+      },
     },
   },
+  // data() {
+  //   return {
+  //     // mutableList: JSON.parse(this.list),
+  //     inputID: '',
+  //     inputValue: '',
+  //   }
+  // },
+  // mounted() {
+  //   this.inputID = this.$props.validationName + '-input'
+  //   this.vModelValue = this.$props.value
+  // },
+  // methods: {
+  //   vmodelChange($event) {
+  //     console.log($event)
+  //     this.$emit('update-value', this.inputValue)
+  //   },
+  // },
 }
 </script>
 
