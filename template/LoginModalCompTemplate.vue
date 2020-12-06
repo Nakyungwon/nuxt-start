@@ -71,6 +71,7 @@ export default {
             mode: 'eager',
             name: 'ID',
           },
+          key: 'userId',
         },
         {
           input: {
@@ -86,6 +87,7 @@ export default {
             mode: 'eager',
             name: 'password',
           },
+          key: 'userPassword',
         },
       ],
       submittedNames: {},
@@ -144,6 +146,9 @@ export default {
       console.log(this.userId)
       const isValid = await this.$refs.observer.validate()
       if (!isValid) return
+      this.bind_login.forEach((object) => {
+        this.submittedNames[object.key] = object.input.value
+      })
       this.submittedNames['userId'] = this.userId
       this.submittedNames['userPassword'] = this.userPassword
       const res = await this.$axios.get('/account/login', {
