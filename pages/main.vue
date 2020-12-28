@@ -26,12 +26,6 @@
     <!--      required-->
     <!--      placeholder="Enter your username"-->
     <!--    ></inputCompTest>-->
-    <inputCompTest
-      v-model="username"
-      required
-      placeholder="Enter your username"
-      @blur="Tlqkf"
-    ></inputCompTest>
     <ForComp :links="links"></ForComp>
     <h1>{{ message }}</h1>
     <!--    v-bind:msg=message로 넘겨서 @messagCompChanged emit과 맞춘다 -->
@@ -41,7 +35,6 @@
       test-a="sword"
       test-b="blade"
       :type="message"
-      @blur="listenerBlur"
     ></inputListener>
     <!--    <input @blur="console.log($event)" />-->
     <!--      v-model="listenerMessage"-->
@@ -52,7 +45,6 @@
 
 <script>
 // import NavigationTest from '@/components/NavigationTest'
-import inputCompTest from '@/components/input/inputCompTest'
 import ForComp from '@/pages/grammar/for'
 import inputText from '@/pages/grammar/inputText'
 import inputListener from '@/pages/grammar/listener'
@@ -63,7 +55,6 @@ export default {
   name: 'Main',
   components: {
     Table,
-    inputCompTest,
     ForComp,
     inputText,
     inputListener,
@@ -89,27 +80,13 @@ export default {
     },
   },
   methods: {
-    Tlqkf($evn) {
-      console.log(this.username)
-    },
     listenerInput(value) {
-      console.log(this.listenerMessage)
       this.listenerMessage = value
-    },
-    listenerBlur($value) {
-      // console.log($value)
-      console.log(this.listenerMessage)
-      console.log($value.target.value)
-      // console.log(this.listenerMessage)
     },
     async test() {
       const r = await this.$axios.get('/api')
-      // console.log('adfasdf')
       this.txt = r.data
     },
   },
 }
 </script>
-
-<!--<style scoped>-->
-<!--</style>-->

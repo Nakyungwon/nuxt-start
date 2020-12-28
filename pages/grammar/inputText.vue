@@ -9,7 +9,10 @@
 export default {
   name: 'InputText',
   props: {
-    msg: {},
+    msg: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return { messageComp: '' }

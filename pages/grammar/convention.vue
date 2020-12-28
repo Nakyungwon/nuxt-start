@@ -8,7 +8,14 @@
 export default {
   name: 'Convention',
   inheritAttrs: false,
-  props: { dataIssue: {} },
+  props: {
+    dataIssue: {
+      type: String,
+      default: () => {
+        return ''
+      },
+    },
+  },
 }
 </script>
 

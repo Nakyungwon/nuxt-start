@@ -12,6 +12,7 @@
                 squared
                 variant="outline-secondary"
                 class="regist_button"
+                @click.prevent="regist"
                 >등록</b-button
               >
             </div>
@@ -69,6 +70,9 @@ export default {
       this.$nextTick(() => {
         this.show = true
       })
+    },
+    regist() {
+      location.href = '/board/regist'
     },
   },
 }

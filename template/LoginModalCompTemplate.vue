@@ -163,12 +163,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//.mt-3 {
-//  color: #28a745;
-//}
-//.mt-3:hover {
-//  color: white;
-//}
 .social_login {
   height: 37px;
   margin-top: 16px;

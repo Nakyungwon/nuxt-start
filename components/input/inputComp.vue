@@ -87,16 +87,19 @@ export default {
       },
     },
     inputLabel: {
+      type: String,
       default: () => {
         return 'label'
       },
     },
     inputId: {
+      type: String,
       default: () => {
         return 'ID'
       },
     },
     inputPlaceholder: {
+      type: String,
       default: () => {
         return 'placeholder'
       },
