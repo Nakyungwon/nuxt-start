@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <MainNav />
-  </div>
+  <b-container> hi </b-container>
 </template>
 
 <script>
-import MainNav from '@/template/MainNavTemplate'
 export default {
   name: 'Regist',
-  components: { MainNav },
 }
 </script>
 

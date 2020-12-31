@@ -1,6 +1,5 @@
 <template>
   <div>
-    <MainNav />
     <div class="main">
       <div class="container">
         <section class="top"></section>
@@ -12,9 +11,10 @@
                 squared
                 variant="outline-secondary"
                 class="regist_button"
-                @click.prevent="regist"
+                @click="toRegistpage"
                 >등록</b-button
               >
+              <!--                @click="$router.push('/board/regist')"-->
             </div>
           </div>
           <div><b-table hover :items="items" :fields="fields"></b-table></div>
@@ -26,10 +26,7 @@
 </template>
 
 <script>
-// import MainNav from '@/components/nav/MainNavComp'
-import MainNav from '@/template/MainNavTemplate'
 export default {
-  components: { MainNav },
   data() {
     return {
       form: {
@@ -71,8 +68,8 @@ export default {
         this.show = true
       })
     },
-    regist() {
-      location.href = '/board/regist'
+    toRegistpage() {
+      this.$router.push('/board/regist')
     },
   },
 }
