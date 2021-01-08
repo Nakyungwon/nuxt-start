@@ -5,19 +5,37 @@ export default {
   // router: {
   //   base: process.env.BASE_DIR === 'local',
   // },
+  mode: 'universal',
   head: {
     title: 'nuxt-start',
     meta: [
       { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        name: 'viewport',
-        content:
-          'width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0',
+        hid: 'description',
+        name: 'description',
+        content: 'Official Nuxt.js starter for CodeSandBox',
       },
-
-      { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // Iconfonts for Vuetify. You need to leave only which one you use
+      {
+        rel: 'stylesheet',
+        href:
+          'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons',
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css',
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css',
+      },
+    ],
     script: [
       {
         src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js',
@@ -26,7 +44,11 @@ export default {
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/vee-validate'],
+  plugins: [
+    '~/plugins/vee-validate',
+    { src: '~/plugins/vue2-editor', ssr: false },
+    { src: '~/plugins/TiptapVuetify', mode: 'client' },
+  ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
@@ -49,9 +71,18 @@ export default {
     '@nuxtjs/style-resources',
     '@nuxtjs/device',
     'bootstrap-vue/nuxt',
+    // '@nuxtjs/vuetify',
+    // 'vue-wysiwyg/nuxt',
   ],
   // styleResources: { scss: ['~/assets/scss/main/main.scss'] },
-  css: ['@/assets/scss/main/main.scss'],
+  css: [
+    '@/assets/scss/main/main.scss',
+    // 'quill/dist/quill.core.css',
+    // for snow theme
+    // 'quill/dist/quill.snow.css',
+    // for bubble theme
+    // 'quill/dist/quill.bubble.css',
+  ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
@@ -90,11 +121,12 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: ['vee-validate/dist/rules'],
+    transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
   },
 
   serverMiddleware: [
     { path: '/api', handler: '~/api/index.js' },
     { path: '/account', handler: '~/api/account/index.js' },
+    { path: '/board', handler: '~/api/board/index.js' },
   ],
 }

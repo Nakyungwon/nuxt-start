@@ -11,7 +11,7 @@
                 squared
                 variant="outline-secondary"
                 class="regist_button"
-                @click="toRegistpage"
+                @click="toRegistpage()"
                 >등록</b-button
               >
               <!--                @click="$router.push('/board/regist')"-->
@@ -69,7 +69,8 @@ export default {
       })
     },
     toRegistpage() {
-      this.$router.push('/board/regist')
+      this.$router.push('/board/detail')
+      // location.href = '/board/regist'
     },
   },
 }

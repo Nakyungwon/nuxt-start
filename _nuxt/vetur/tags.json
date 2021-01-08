@@ -1,0 +1,44 @@
+{
+  "Logo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "LazyLogo": {
+    "description": "Auto imported from components/Logo.vue"
+  },
+  "NavigationTest": {
+    "description": "Auto imported from components/NavigationTest.vue"
+  },
+  "LazyNavigationTest": {
+    "description": "Auto imported from components/NavigationTest.vue"
+  },
+  "Table": {
+    "description": "Auto imported from components/Table.vue"
+  },
+  "LazyTable": {
+    "description": "Auto imported from components/Table.vue"
+  },
+  "LoginModalComp": {
+    "description": "Auto imported from components/account/LoginModalComp.vue"
+  },
+  "LazyLoginModalComp": {
+    "description": "Auto imported from components/account/LoginModalComp.vue"
+  },
+  "Footer": {
+    "description": "Auto imported from components/footer/footer.vue"
+  },
+  "LazyFooter": {
+    "description": "Auto imported from components/footer/footer.vue"
+  },
+  "InputComp": {
+    "description": "Auto imported from components/input/inputComp.vue"
+  },
+  "LazyInputComp": {
+    "description": "Auto imported from components/input/inputComp.vue"
+  },
+  "MainNavComp": {
+    "description": "Auto imported from components/nav/MainNavComp.vue"
+  },
+  "LazyMainNavComp": {
+    "description": "Auto imported from components/nav/MainNavComp.vue"
+  }
+}

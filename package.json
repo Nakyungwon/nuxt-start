@@ -27,7 +27,11 @@
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "nuxt": "^2.14.6",
-    "vee-validate": "^3.4.5"
+    "quill-image-drop-module": "^1.0.3",
+    "quill-image-resize-module": "^3.0.0",
+    "tiptap-vuetify": "^2.24.0",
+    "vee-validate": "^3.4.5",
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
@@ -44,5 +48,8 @@
     "stylelint": "^13.7.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.9.1"
   }
 }

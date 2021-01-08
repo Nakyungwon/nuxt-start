@@ -1,0 +1,65 @@
+[
+  {
+    "name": "main",
+    "path": "/main",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/main.vue",
+    "chunkName": "pages/main",
+    "_name": "_7781ce92"
+  },
+  {
+    "name": "account-login",
+    "path": "/account/login",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/account/login.vue",
+    "chunkName": "pages/account/login",
+    "_name": "_3d7e3df9"
+  },
+  {
+    "name": "board-regist",
+    "path": "/board/regist",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/board/regist.vue",
+    "chunkName": "pages/board/regist",
+    "_name": "_205884bd"
+  },
+  {
+    "name": "callback-naver",
+    "path": "/callback/naver",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/callback/naver.vue",
+    "chunkName": "pages/callback/naver",
+    "_name": "_284033c4"
+  },
+  {
+    "name": "grammar-convention",
+    "path": "/grammar/convention",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/grammar/convention.vue",
+    "chunkName": "pages/grammar/convention",
+    "_name": "_52618152"
+  },
+  {
+    "name": "grammar-for",
+    "path": "/grammar/for",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/grammar/for.vue",
+    "chunkName": "pages/grammar/for",
+    "_name": "_5950acd3"
+  },
+  {
+    "name": "grammar-inputText",
+    "path": "/grammar/inputText",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/grammar/inputText.vue",
+    "chunkName": "pages/grammar/inputText",
+    "_name": "_07fe27a1"
+  },
+  {
+    "name": "grammar-listener",
+    "path": "/grammar/listener",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/grammar/listener.vue",
+    "chunkName": "pages/grammar/listener",
+    "_name": "_7f972acc"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/nagyeong-won/Desktop/my_workspace/nuxt-start/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_b5ce4b78"
+  }
+]
