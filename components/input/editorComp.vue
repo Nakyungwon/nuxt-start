@@ -10,13 +10,13 @@
 <script>
 import {
   TiptapVuetify,
-  Heading,
-  Bold,
+  // Heading,
+  // Bold,
   Italic,
   Strike,
   Underline,
   Code,
-  Paragraph,
+  // Paragraph,
   BulletList,
   OrderedList,
   ListItem,
@@ -30,6 +30,14 @@ import {
 export default {
   name: 'Detail',
   components: { TiptapVuetify },
+  props: {
+    edit_contents: {
+      type: String,
+      default: () => {
+        return ''
+      },
+    },
+  },
   data: () => ({
     // declare extensions you want to use
     extensions: [
@@ -42,19 +50,19 @@ export default {
       ListItem,
       BulletList,
       OrderedList,
-      [
-        Heading,
-        {
-          options: {
-            levels: [1, 2, 3],
-          },
-        },
-      ],
-      Bold,
+      // [
+      //   Heading,
+      //   {
+      //     options: {
+      //       levels: [1, 2, 3],
+      //     },
+      //   },
+      // ],
+      // Bold,
       Link,
       Code,
       HorizontalRule,
-      Paragraph,
+      // Paragraph,
       HardBreak,
       Image,
     ],
@@ -72,10 +80,10 @@ export default {
       const content = document.getElementsByClassName(
         'tiptap-vuetify-editor__content'
       )
-      content[0].setAttribute('style', 'height: 500px')
+      content[0].setAttribute('style', 'height: 800px')
       this.$nextTick(() => {
         const mirror = document.getElementsByClassName('ProseMirror')
-        mirror[0].setAttribute('style', 'height: 450px')
+        mirror[0].setAttribute('style', 'height: 750px')
       })
     })
   },

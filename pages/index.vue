@@ -69,7 +69,7 @@ export default {
       })
     },
     toRegistpage() {
-      this.$router.push('/board/detail')
+      this.$router.push('/board/regist')
       // location.href = '/board/regist'
     },
   },

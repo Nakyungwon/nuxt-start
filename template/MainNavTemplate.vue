@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+      <b-navbar-brand href="/">Nav</b-navbar-brand>
       <b-navbar-brand v-b-modal.login_modal href="#" class="navbar_text"
         >Login</b-navbar-brand
       >
