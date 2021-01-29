@@ -1,8 +1,12 @@
 <template>
   <div>
     <v-app>
-      <tiptap-vuetify v-model="content" :extensions="extensions" />
-      <!--      <template #placeholder> Loading... </template>-->
+      <tiptap-vuetify
+        v-model="editContents"
+        :extensions="extensions"
+        @input="$emit('update:content', $event)"
+      >
+      </tiptap-vuetify>
     </v-app>
   </div>
 </template>
@@ -15,7 +19,7 @@ import {
   Italic,
   Strike,
   Underline,
-  Code,
+  // Code,
   // Paragraph,
   BulletList,
   OrderedList,
@@ -31,7 +35,7 @@ export default {
   name: 'Detail',
   components: { TiptapVuetify },
   props: {
-    edit_contents: {
+    content: {
       type: String,
       default: () => {
         return ''
@@ -39,7 +43,6 @@ export default {
     },
   },
   data: () => ({
-    // declare extensions you want to use
     extensions: [
       History,
       Blockquote,
@@ -60,21 +63,23 @@ export default {
       // ],
       // Bold,
       Link,
-      Code,
+      // Code,
       HorizontalRule,
       // Paragraph,
       HardBreak,
       Image,
     ],
+    editContents: '',
     // starting editor's content
-    content: ``,
   }),
   computed: {
     reversedMessage() {
       return this.message.split('').reverse().join('')
     },
   },
-  created() {},
+  created() {
+    this.editContents = this.content
+  },
   mounted() {
     this.$nextTick(() => {
       const content = document.getElementsByClassName(
@@ -86,6 +91,11 @@ export default {
         mirror[0].setAttribute('style', 'height: 750px')
       })
     })
+  },
+  methods: {
+    contentUpdate() {
+      this.$emit('toParentChange', this.editContents)
+    },
   },
 }
 </script>

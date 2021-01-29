@@ -1,4 +1,5 @@
 // const BASE_DIR = process.env.BASE_DIR || ''
+import bodyParser from 'body-parser'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -125,8 +126,22 @@ export default {
   },
 
   serverMiddleware: [
-    { path: '/api', handler: '~/api/index.js' },
-    { path: '/account', handler: '~/api/account/index.js' },
-    { path: '/board', handler: '~/api/board/index.js' },
+    bodyParser.json(),
+    (req, res, next) => {
+      req.removeAllListeners('data')
+      req.removeAllListeners('end')
+      process.nextTick(() => {
+        if (req.body) {
+          req.emit('data', JSON.stringify(req.body))
+        }
+        req.emit('end')
+      })
+      next()
+    },
+    bodyParser.urlencoded({ extended: true }),
+    // { path: '/api', handler: '~/api/index.js' },
+    // { path: '/account', handler: '~/api/account/index.js' },
+    // { path: '/board', handler: '~/api/board/index.js' },
+    { path: '/', handler: '~/api/index_tmp.js' },
   ],
 }
