@@ -86,19 +86,13 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {
-    // baseURL: process.env.BASE_URL,
-    // retry: { retries: 3 },
-    proxy: true,
-    // proxyHeaders: false,
-    // credentials: false,
-  },
   proxy: {
     // '/api/': 'http://www.naver.com', // proxy url
   },
   header: {
     common: {
-      Accept: 'application/json, text/plain, */*',
+      Accept:
+        'application/json, application/x-www-form-urlencoded, text/plain, */*',
       // Accept: 'application/json, text/plain, Access-Control-Allow-Origin',
     },
     delete: {},
@@ -119,7 +113,14 @@ export default {
   //     baseURL: process.env.BASE_URL,
   //   },
   // },
-
+  axios: {
+    baseURL: process.env.BASE_URL,
+    proxy: true,
+    proxyHeaders: true,
+    headers: {
+      common: {},
+    },
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
@@ -127,17 +128,17 @@ export default {
 
   serverMiddleware: [
     bodyParser.json(),
-    (req, res, next) => {
-      req.removeAllListeners('data')
-      req.removeAllListeners('end')
-      process.nextTick(() => {
-        if (req.body) {
-          req.emit('data', JSON.stringify(req.body))
-        }
-        req.emit('end')
-      })
-      next()
-    },
+    // (req, res, next) => {
+    //   req.removeAllListeners('data')
+    //   req.removeAllListeners('end')
+    //   process.nextTick(() => {
+    //     if (req.body) {
+    //       req.emit('data', JSON.stringify(req.body))
+    //     }
+    //     req.emit('end')
+    //   })
+    //   next()
+    // },
     bodyParser.urlencoded({ extended: true }),
     // { path: '/api', handler: '~/api/index.js' },
     // { path: '/account', handler: '~/api/account/index.js' },

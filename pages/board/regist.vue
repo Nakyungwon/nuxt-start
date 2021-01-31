@@ -13,7 +13,7 @@
           </div>
           <!--          <editorComp :content.sync="content" @toParentChange="parentConfirm" />-->
           <editorComp :content.sync="content" />
-          <!--          <input type="file" @change="onFileUpload($event)" />-->
+          <input type="file" @change="onFileUpload($event)" />
         </v-container>
       </v-app>
     </div>
@@ -55,7 +55,10 @@ export default {
       const formData = new FormData()
       formData.append('content', this.content)
       // formData.append('avatar', this.FILE, this.FILE.name)
-      console.log('gogo')
+      // formData.append(
+      //   'avatar',
+      //   new Blob(['test payload'], { type: 'text/csv' })
+      // )
       this.$axios
         .post('/board/regist_multipart', formData, {
           headers: {
@@ -69,10 +72,6 @@ export default {
           console.log(err)
         })
     },
-    // handleFileUpload() {
-    //   console.log(this.$refs)
-    //   this.FILE = this.$refs.file.files[0]
-    // },
     onFileUpload(event) {
       this.FILE = event.target.files[0]
       console.log(this.FILE.name)

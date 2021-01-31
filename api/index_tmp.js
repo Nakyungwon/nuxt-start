@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const formidableMiddleware = require('express-formidable')
+// const formidableMiddleware = require('express-formidable')
 
 // export default (req, res) => {
 //   console.log('testest')
@@ -14,20 +14,27 @@ const formidableMiddleware = require('express-formidable')
 // app.get('/', (req, res, next) => {
 //   res.send('훌륭해요! ' + Math.random())
 // })
+app.use(express.json())
 app.disable('x-powered-by')
-app.use(
-  formidableMiddleware({
-    uploadDir: '/uploads',
-    multiples: true,
-  })
-)
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: true,
+//   })
+// )
+app.use(express.urlencoded())
+// app.use(
+//   formidableMiddleware({
+//     uploadDir: '/uploads',
+//     multiples: true,
+//   })
+// )
 const board = require('./board/index_tmp')
 app.use('/board', board)
-app.use((req, res, next) => {
-  if (req.contentType().toLowerCase() === 'multipart/form-data') {
-    next()
-  }
-})
+// app.use((req, res, next) => {
+//   if (req.contentType().toLowerCase() === 'multipart/form-data') {
+//     next()
+//   }
+// })
 
 // if (require.main === module) {
 //   const port = 3001

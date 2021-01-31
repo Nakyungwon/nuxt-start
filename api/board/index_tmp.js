@@ -1,19 +1,24 @@
 const path = require('path')
 const { Router } = require('express')
 const router = Router()
-const formidable = require('formidable')
 const multer = require('multer')
+// const formidable = require('formidable')
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, path.join(__dirname, 'uploads/'))
   },
   filename(req, file, cb) {
-    cb(null, 'fileName')
+    const ext = path.extname(file.originalname).toLowerCase()
+    // const file_name = uuidv4() + "_" + ext;
+    const fileName = ext
+    cb(null, fileName)
   },
 })
-const upload = multer({
-  storage,
-})
+// const upload = multer({
+//   storage,
+// })
+// const upload = multer({ storage }).single('avatar')
+const upload = multer({ storage }).none()
 
 router.post('/imageUpload', (req, res, next) => {
   console.log(req.query)
@@ -40,9 +45,32 @@ router.post('/regist_multipart', (req, res, next) => {
   //   console.log(fields)
   //   res.json({ fields, files })
   // })
-  // res.send('aaaaaa')
-  console.log(res.fields)
-  res.json(res.body)
+
+  upload(req, res, (err) => {
+    // console.log(req)
+    console.log(req.body)
+    if (err instanceof multer.MulterError) {
+      console.log('1--------------')
+      console.log(err)
+      console.log('1--------------')
+    } else if (err) {
+      // An unknown error occurred when uploading.
+      console.log('2--------------')
+      console.log(err)
+      console.log('2--------------')
+    }
+  })
+
+  // const form = new formidable.IncomingForm()
+  // form.parse(req, function (err, fields, files) {
+  //   console.log(fields)
+  //   if (err) {
+  //     return res.status(400).json({ error: err.message })
+  //   }
+  //   const [firstFileName] = Object.keys(files)
+  //
+  //   res.json({ filename: firstFileName })
+  // })
 })
 
 router.post('/regist', (req, res, next) => {
