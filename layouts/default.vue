@@ -1,16 +1,16 @@
 <template>
   <div>
-    <MainNav />
+    <!--    <MainNav />-->
     <Nuxt />
-    <Footer />
+    <!--    <Footer />-->
   </div>
 </template>
 
 <script>
-import MainNav from '@/template/MainNavTemplate'
-import Footer from '@/components/footer/footer.vue'
+// import MainNav from '@/template/MainNavTemplate'
+// import Footer from '@/components/footer/footer.vue'
 export default {
-  components: { MainNav, Footer },
+  // components: { MainNav, Footer },
 }
 </script>
 

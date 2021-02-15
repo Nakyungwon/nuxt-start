@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar />
     <div class="main">
       <div class="container">
         <section class="top"></section>
@@ -26,7 +27,9 @@
 </template>
 
 <script>
+import NavBar from '@/components/nav/NavBar'
 export default {
+  components: { NavBar },
   data() {
     return {
       form: {

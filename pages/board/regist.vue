@@ -13,7 +13,6 @@
           </div>
           <!--          <editorComp :content.sync="content" @toParentChange="parentConfirm" />-->
           <editorComp :content.sync="content" />
-          <input type="file" @change="onFileUpload($event)" />
         </v-container>
       </v-app>
     </div>

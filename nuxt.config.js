@@ -3,9 +3,22 @@ import bodyParser from 'body-parser'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-  // router: {
-  //   base: process.env.BASE_DIR === 'local',
-  // },
+  router: {
+    // base: process.env.BASE_DIR === 'local',
+    extendRoutes(routes, resolve) {
+      routes.length = 0
+      routes.push({
+        path: '/',
+        component: resolve(__dirname, 'pages/design.vue'),
+        name: 'design',
+      })
+      routes.push({
+        path: '/index',
+        component: resolve(__dirname, 'pages/index.vue'),
+        name: 'index',
+      })
+    },
+  },
   mode: 'universal',
   head: {
     title: 'nuxt-start',
@@ -68,7 +81,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
-    '@nuxtjs/bootstrap-vue',
     '@nuxtjs/style-resources',
     '@nuxtjs/device',
     'bootstrap-vue/nuxt',
@@ -76,14 +88,7 @@ export default {
     // 'vue-wysiwyg/nuxt',
   ],
   // styleResources: { scss: ['~/assets/scss/main/main.scss'] },
-  css: [
-    '@/assets/scss/main/main.scss',
-    // 'quill/dist/quill.core.css',
-    // for snow theme
-    // 'quill/dist/quill.snow.css',
-    // for bubble theme
-    // 'quill/dist/quill.bubble.css',
-  ],
+  // css: ['@/assets/scss/main/main.scss'],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   proxy: {
@@ -128,21 +133,7 @@ export default {
 
   serverMiddleware: [
     bodyParser.json(),
-    // (req, res, next) => {
-    //   req.removeAllListeners('data')
-    //   req.removeAllListeners('end')
-    //   process.nextTick(() => {
-    //     if (req.body) {
-    //       req.emit('data', JSON.stringify(req.body))
-    //     }
-    //     req.emit('end')
-    //   })
-    //   next()
-    // },
     bodyParser.urlencoded({ extended: true }),
-    // { path: '/api', handler: '~/api/index.js' },
-    // { path: '/account', handler: '~/api/account/index.js' },
-    // { path: '/board', handler: '~/api/board/index.js' },
-    { path: '/', handler: '~/api/index_tmp.js' },
+    { path: '/', handler: '~/api/index.js' },
   ],
 }
