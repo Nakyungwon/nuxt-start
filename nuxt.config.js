@@ -8,7 +8,17 @@ export default {
     extendRoutes(routes, resolve) {
       routes.length = 0
       routes.push({
+        path: '/local',
+        component: resolve(__dirname, 'pages/local.vue'),
+        name: 'local',
+      })
+      routes.push({
         path: '/',
+        component: resolve(__dirname, 'pages/shop/index.vue'),
+        name: 'shop',
+      })
+      routes.push({
+        path: '/design',
         component: resolve(__dirname, 'pages/design.vue'),
         name: 'design',
       })
@@ -33,7 +43,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      // Iconfonts for Vuetify. You need to leave only which one you use
       {
         rel: 'stylesheet',
         href:
@@ -54,14 +63,17 @@ export default {
       {
         src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js',
       },
+      {
+        src: 'https://kit.fontawesome.com/a076d05399.js',
+      },
     ],
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/vee-validate',
-    { src: '~/plugins/vue2-editor', ssr: false },
-    { src: '~/plugins/TiptapVuetify', mode: 'client' },
+    // '~/plugins/vee-validate',
+    // { src: '~/plugins/vue2-editor', ssr: false },
+    // { src: '~/plugins/TiptapVuetify', mode: 'client' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -77,19 +89,18 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/vuetify',
+    // '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/device',
-    'bootstrap-vue/nuxt',
-    // '@nuxtjs/vuetify',
-    // 'vue-wysiwyg/nuxt',
+    // 'bootstrap-vue/nuxt',
   ],
   // styleResources: { scss: ['~/assets/scss/main/main.scss'] },
   // css: ['@/assets/scss/main/main.scss'],
-
+  styleResources: {
+    scss: ['@/assets/scss/shop/common.scss'],
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   proxy: {
     // '/api/': 'http://www.naver.com', // proxy url
@@ -128,7 +139,7 @@ export default {
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
+    // transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
   },
 
   serverMiddleware: [
