@@ -24,7 +24,7 @@ import Bottom from '@/pages/shop/footer/Bottom'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('shop')
 export default {
-  layout: 'register',
+  // layout: 'register',
   name: 'IndexVue',
   components: { Top, Bottom },
   computed: { ...mapState(['main_products']) },

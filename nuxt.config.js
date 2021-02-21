@@ -5,31 +5,31 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   router: {
     // base: process.env.BASE_DIR === 'local',
-    extendRoutes(routes, resolve) {
-      routes.length = 0
-      routes.push({
-        path: '/local',
-        component: resolve(__dirname, 'pages/local.vue'),
-        name: 'local',
-      })
-      routes.push({
-        path: '/',
-        component: resolve(__dirname, 'pages/shop/index.vue'),
-        name: 'shop',
-      })
-      routes.push({
-        path: '/design',
-        component: resolve(__dirname, 'pages/design.vue'),
-        name: 'design',
-      })
-      routes.push({
-        path: '/index',
-        component: resolve(__dirname, 'pages/index.vue'),
-        name: 'index',
-      })
-    },
+    // extendRoutes(routes, resolve) {
+    // routes.length = 0
+    // routes.push({
+    //   path: '/local',
+    //   component: resolve(__dirname, 'pages/local.vue'),
+    //   name: 'local',
+    // })
+    // routes.push({
+    //   path: '/shop',
+    //   component: resolve(__dirname, 'pages/shop/index.vue'),
+    //   name: 'shop',
+    // })
+    // routes.push({
+    //   path: '/design',
+    //   component: resolve(__dirname, 'pages/design.vue'),
+    //   name: 'design',
+    // })
+    // routes.push({
+    //   path: '/index',
+    //   component: resolve(__dirname, 'pages/index.vue'),
+    //   name: 'index',
+    // })
+    // },
   },
-  mode: 'universal',
+  // mode: 'universal',
   head: {
     title: 'nuxt-start',
     meta: [
@@ -146,5 +146,6 @@ export default {
     bodyParser.json(),
     bodyParser.urlencoded({ extended: true }),
     { path: '/', handler: '~/api/index.js' },
+    { path: '/shop', handler: '~/api/shop/index.js' },
   ],
 }
