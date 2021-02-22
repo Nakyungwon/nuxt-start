@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   router: {
+    middleware: ['shop/user/auth'],
     // base: process.env.BASE_DIR === 'local',
     // extendRoutes(routes, resolve) {
     // routes.length = 0
@@ -30,6 +31,31 @@ export default {
     // },
   },
   // mode: 'universal',
+  auth: {
+    localStorage: false,
+    cookie: {
+      options: {
+        expires: 7,
+      },
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/shop/user/login',
+            method: 'post',
+            propertyName: false,
+          },
+          logout: false,
+          user: { url: '/shop/user/check', method: 'get', propertyName: false },
+        },
+      },
+    },
+    plugins: [
+      '~/plugins/axios.js',
+      { src: '~/plugins/auth.js', mode: 'client' },
+    ],
+  },
   head: {
     title: 'nuxt-start',
     meta: [
@@ -91,9 +117,11 @@ export default {
   modules: [
     '@nuxtjs/axios',
     // '@nuxtjs/vuetify',
+    '@nuxtjs/auth',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/device',
+    ['cookie-universal-nuxt', { alias: 'cookiz' }],
     // 'bootstrap-vue/nuxt',
   ],
   // styleResources: { scss: ['~/assets/scss/main/main.scss'] },

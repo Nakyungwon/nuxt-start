@@ -26,6 +26,7 @@ const { mapState } = createNamespacedHelpers('shop')
 export default {
   // layout: 'register',
   name: 'IndexVue',
+  auth: false,
   components: { Top, Bottom },
   computed: { ...mapState(['main_products']) },
 }

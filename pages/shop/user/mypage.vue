@@ -11,10 +11,18 @@ import Top from '@/pages/shop/header/Top'
 export default {
   name: 'Mypage',
   components: { Top },
-  middleware({ store, redirect }) {
-    // If the user is not authenticated
-    if (!store.state.authenticated) {
-      return redirect('/shop')
+  auth: true,
+  // middleware({ store, redirect }) {
+  //   if (!store.state.authenticated) {
+  //     return redirect('/shop')
+  //   }
+  // }
+  created() {
+    if (process.server) {
+      console.log(this.$axios.defaults.headers.common['X-Token'], 'server')
+    }
+    if (process.client) {
+      console.log(this.$axios.defaults.headers.common['X-Token'], 'client')
     }
   },
 }

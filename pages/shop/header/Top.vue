@@ -9,7 +9,7 @@
       </ul>
       <ul class="inner_right">
         <li v-for="menu in top_right_menus" :key="menu.id">
-          <a @click.prevent="vuexFunc(menu.func, menu.param)">{{
+          <a class="pointer" @click.prevent="vuexFunc(menu.func, menu.param)">{{
             menu.name
           }}</a>
         </li>

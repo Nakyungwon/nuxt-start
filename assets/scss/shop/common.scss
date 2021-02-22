@@ -9,6 +9,10 @@
   padding-left: 5%;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 @mixin shop_li($float) {
   float: $float;
   list-style: none;
