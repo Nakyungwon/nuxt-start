@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   router: {
-    middleware: ['shop/user/auth'],
+    // middleware: ['shop/user/auth'],
     // base: process.env.BASE_DIR === 'local',
     // extendRoutes(routes, resolve) {
     // routes.length = 0
@@ -31,31 +31,31 @@ export default {
     // },
   },
   // mode: 'universal',
-  auth: {
-    localStorage: false,
-    cookie: {
-      options: {
-        expires: 7,
-      },
-    },
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/shop/user/login',
-            method: 'post',
-            propertyName: false,
-          },
-          logout: false,
-          user: { url: '/shop/user/check', method: 'get', propertyName: false },
-        },
-      },
-    },
-    plugins: [
-      '~/plugins/axios.js',
-      { src: '~/plugins/auth.js', mode: 'client' },
-    ],
-  },
+  // auth: {
+  //   localStorage: false,
+  //   cookie: {
+  //     options: {
+  //       expires: 7,
+  //     },
+  //   },
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/shop/user/login',
+  //           method: 'post',
+  //           propertyName: false,
+  //         },
+  //         logout: false,
+  //         user: { url: '/shop/user/check', method: 'get', propertyName: false },
+  //       },
+  //     },
+  //   },
+  //   plugins: [
+  //     '~/plugins/axios.js',
+  //     { src: '~/plugins/auth.js', mode: 'client' },
+  //   ],
+  // },
   head: {
     title: 'nuxt-start',
     meta: [
@@ -163,6 +163,20 @@ export default {
     proxyHeaders: true,
     headers: {
       common: {},
+    },
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/shop/user/login',
+            method: 'post',
+            propertyName: 'access',
+          },
+          user: { url: '/check/', method: 'get', propertyName: false },
+        },
+      },
     },
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)

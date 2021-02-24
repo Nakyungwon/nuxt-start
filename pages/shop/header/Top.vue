@@ -7,7 +7,12 @@
           <a @click.prevent="addMain">{{ menu.name }}</a>
         </li>
       </ul>
-      <ul class="inner_right">
+      <ul v-if="$store.state.loggedIn" class="inner_right">
+        <li>
+          <a>logout</a>
+        </li>
+      </ul>
+      <ul v-else class="inner_right">
         <li v-for="menu in top_right_menus" :key="menu.id">
           <a class="pointer" @click.prevent="vuexFunc(menu.func, menu.param)">{{
             menu.name
@@ -30,6 +35,22 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('shop')
 export default {
   name: 'Header',
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      },
+    }
+  },
+  // beforeCreate() {
+  //   this.$store.dispatch('getUserInfo')
+  // },
+  created() {
+    console.log('1')
+    this.$store.dispatch('shop/getUserInfo')
+    console.log('2')
+  },
   computed: {
     ...mapState(['top_left_menus', 'top_right_menus', 'bottom_menus']),
   },

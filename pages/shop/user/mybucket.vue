@@ -1,17 +1,17 @@
 <template>
   <div class="top">
     <Top />
-    <div>마이 페이지</div>
-    <div>내 정보들 ....</div>
+    <div>장바구니</div>
+    <div>장바구니 정보들</div>
   </div>
 </template>
 
 <script>
 import Top from '@/pages/shop/header/Top'
 export default {
-  name: 'Mypage',
+  name: 'Mybucket',
   components: { Top },
-  middleware: 'shop/user/auth',
+  // middleware: 'shop/user/auth',
   // middleware({ store, redirect }) {
   //   if (!store.state.authenticated) {
   //     return redirect('/shop')

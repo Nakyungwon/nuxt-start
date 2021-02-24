@@ -15,11 +15,18 @@ export const state = () => ({
     { name: 'LOGIN', func: 'login' },
     { name: 'GETTOKEN', func: 'getToken' },
     { name: 'MYPAGE', func: 'renderPage', param: '/shop/user/mypage' },
+    { name: 'MYBUCKET', func: 'renderPage', param: '/shop/user/mybucket' },
   ],
   bottom_menus: [{ name: 'ACC' }, { name: 'BOTTOM' }, { name: 'TOP' }],
+  authToken: null,
+  username: null,
+  loggedIn: null,
 })
 
 export const mutations = {
+  isLoggin() {
+    console.log('hi')
+  },
   addMain(state) {
     state.main_products.push(require('@/assets/images/main/1055748554.jpg'))
   },
@@ -29,36 +36,56 @@ export const mutations = {
   },
   login(state) {
     console.log('login ...')
-    const loginResObj = this.$axios.post('/shop/user/login', {})
+    console.log(this.$axios)
+    const loginResObj = this.$axios.post('/shop/user/login', {
+      id: 'saecomaster',
+    })
     loginResObj.then((res) => {
-      // console.log(res.data.token_key)
-      this.$cookiz.set('user_token', res.data.token_key, {
+      this.$cookiz.set('userToken', res.data.accessToken, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
+      this.$cookiz.set('refreshToken', res.data.refreshToken, {
         path: '/',
         maxAge: 60 * 60 * 24 * 7,
       })
     })
   },
-  getToken(state) {
-    const token = this.$cookiz.get('user_token')
-    const jwtSecret = 'SeCrEtKeYfOrHaShInG'
-    const checkToken = new Promise((resolve, reject) => {
-      this.$jwt.verify(token, jwtSecret, function (err, decoded) {
-        if (err) reject(err)
-        resolve(decoded)
-      })
-    })
-    checkToken.then((token) => {
-      console.log(token)
-    })
-    // const tokenObj = this.$axios.get('/shop/user/check', {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'x-access-token': token,
-    //   },
-    // })
 
-    // tokenObj.then((res) => {
-    //   console.log(res)
-    // })
+  async getToken(state) {
+    const userToken = this.$cookiz.get('userToken')
+    try {
+      const res = await this.$axios.get('/shop/user/check', {
+        headers: {
+          'x-access-token': userToken,
+        },
+      })
+      console.log('check...')
+      console.log(res)
+      console.log('check sucess...')
+    } catch (e) {
+      if (e.response.status === 401) {
+        console.log(e.response.data.msg)
+        const refreshToken = this.$cookiz.get('refreshToken')
+        const res = await this.$axios.get('/shop/user/refresh', {
+          headers: {
+            // 'Content-Type': 'multipart/form-data',
+            'x-refresh-token': refreshToken,
+          },
+        })
+        this.$cookiz.set('userToken', res.data.accessToken, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7,
+        })
+      } else {
+        console.log('토큰에러 로그인 페이지로 이동')
+      }
+    }
+  },
+}
+
+export const actions = {
+  getUserInfo(context) {
+    context.commit('isLoggin')
   },
 }
