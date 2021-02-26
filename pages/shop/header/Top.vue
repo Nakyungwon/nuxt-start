@@ -47,9 +47,7 @@ export default {
   //   this.$store.dispatch('getUserInfo')
   // },
   created() {
-    console.log('1')
-    this.$store.dispatch('shop/getUserInfo')
-    console.log('2')
+    // this.$store.dispatch('shop/getUserInfo')
   },
   computed: {
     ...mapState(['top_left_menus', 'top_right_menus', 'bottom_menus']),

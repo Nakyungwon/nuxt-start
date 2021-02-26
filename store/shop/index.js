@@ -23,10 +23,21 @@ export const state = () => ({
   loggedIn: null,
 })
 
-export const mutations = {
-  isLoggin() {
-    console.log('hi')
+export const getters = {
+  test(state) {
+    return 'test getter'
   },
+}
+
+export const mutations = {
+  // islogin(state, isParam) {
+  //   state.loggedIn.push(isParam)
+  // },
+
+  // userInfo(state, username) {
+  //   state.username.push(username)
+  // },
+
   addMain(state) {
     state.main_products.push(require('@/assets/images/main/1055748554.jpg'))
   },
@@ -36,7 +47,6 @@ export const mutations = {
   },
   login(state) {
     console.log('login ...')
-    console.log(this.$axios)
     const loginResObj = this.$axios.post('/shop/user/login', {
       id: 'saecomaster',
     })
@@ -84,8 +94,99 @@ export const mutations = {
   },
 }
 
-export const actions = {
-  getUserInfo(context) {
-    context.commit('isLoggin')
-  },
-}
+export const actions = {}
+// getUserInfo(context) {
+// const refreshToken = this.$cookiz.get('refreshToken')
+// const accessToken = this.$cookiz.get('userToken')
+// if (!refreshToken) {
+//   // store.state.loggedIn = false
+//   context.commit('islogin', false)
+//   // 쿠키 싹다 비우기
+// } else if (!accessToken) {
+//   try {
+//     const res = getTokkenwithrefreshToken(refreshToken)
+//     this.$cookiz.set('userToken', res.data.accessToken, {
+//       path: '/',
+//       maxAge: 60 * 60 * 24 * 7,
+//     })
+//     const userInfoRes = getUserInfo(res.data.accessToken)
+//     // store.state.username = userInfoRes.data.userName
+//     // store.state.loggedIn = true
+//     context.commit('userInfo', userInfoRes.data.userName)
+//     context.commit('islogin', true)
+//     // userinfo 호출
+//   } catch (e) {
+//     if (e.response.status === 401) {
+//       // store.state.loggedIn = false
+//       context.commit('islogin', false)
+//     }
+//   }
+// } else {
+//   try {
+//     const userInfoRes = getUserInfo(accessToken)
+//     console.log(userInfoRes)
+//     // store.state.username = userInfoRes.data.username
+//     // store.state.loggedIn = true
+//     context.commit('userInfo', userInfoRes.data.userName)
+//     context.commit('islogin', true)
+//   } catch (e) {
+//     console.log(e)
+//     if (e.response.status === 401) {
+//       try {
+//         const res = getTokkenwithrefreshToken(refreshToken)
+//         this.$cookiz.set('userToken', res.data.accessToken, {
+//           path: '/',
+//           maxAge: 60 * 60 * 24 * 7,
+//         })
+//         const userInfoRes = getUserInfo(res.data.accessToken)
+//         // store.state.username = userInfoRes.data.userName
+//         // store.state.loggedIn = true
+//         context.commit('userInfo', userInfoRes.data.userName)
+//         context.commit('islogin', true)
+//         // userinfo 호출
+//       } catch (e) {
+//         if (e.response.status === 401) {
+//           // store.state.loggedIn = false
+//           context.commit('islogin', false)
+//         }
+//       }
+//     }
+//   }
+// }
+// },
+
+//
+// function getTokkenwithrefreshToken(refreshToken) {
+//   console.log('/shop/user/refresh 호출')
+//   console.log(refreshToken)
+//   const res = this.$axios.get('/shop/user/refresh', {
+//     headers: {
+//       'x-refresh-token': refreshToken,
+//     },
+//   })
+//   res.then((obj) => {
+//     console.log(obj)
+//     return obj
+//   })
+// }
+//
+// function getUserInfo(accessToken) {
+//   console.log('/shop/user/userInfo 호출')
+//   const res = this.$axios.get('/shop/user/userInfo', {
+//     headers: {
+//       'x-access-token': accessToken,
+//     },
+//   })
+//   console.log('/shop/user/userInfo come')
+//   res
+//     .then((obj) => {
+//       console.log('------------------')
+//       console.log(obj)
+//       console.log('------------------')
+//       return obj
+//     })
+//     .catch((e) => {
+//       console.log('------------------')
+//       console.log(e)
+//     })
+// }

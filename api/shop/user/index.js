@@ -7,6 +7,10 @@ const users = [
   { id: 'gogo', name: '2jieun' },
 ]
 
+router.get('/test', (req, res, next) => {
+  res.status(200).json({ 'msg:': 'zzz' })
+})
+
 router.post('/login', (req, res, next) => {
   // res.send('훌륭해요za11111! ' + Math.random())
   const id = req.body.id
