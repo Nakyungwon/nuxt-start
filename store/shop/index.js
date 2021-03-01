@@ -18,9 +18,9 @@ export const state = () => ({
     { name: 'MYBUCKET', func: 'renderPage', param: '/shop/user/mybucket' },
   ],
   bottom_menus: [{ name: 'ACC' }, { name: 'BOTTOM' }, { name: 'TOP' }],
-  authToken: null,
+  // authToken: null,
   username: null,
-  loggedIn: null,
+  loggedIn: false,
 })
 
 export const getters = {
@@ -30,13 +30,22 @@ export const getters = {
 }
 
 export const mutations = {
-  // islogin(state, isParam) {
-  //   state.loggedIn.push(isParam)
-  // },
+  logout(state) {
+    console.log('logout ..')
+    this.$cookiz.set('userToken', null)
+    this.$cookiz.set('refreshToken', null)
+    state.username = null
+    state.loggedIn = false
+  },
+  islogin(state, isParam) {
+    console.log('islogin ..')
+    state.loggedIn = isParam
+  },
 
-  // userInfo(state, username) {
-  //   state.username.push(username)
-  // },
+  userInfo(state, username) {
+    console.log(username)
+    state.username = username
+  },
 
   addMain(state) {
     state.main_products.push(require('@/assets/images/main/1055748554.jpg'))
@@ -46,6 +55,7 @@ export const mutations = {
     this.$router.push(param)
   },
   login(state) {
+    // this.$auth.login()
     console.log('login ...')
     const loginResObj = this.$axios.post('/shop/user/login', {
       id: 'saecomaster',
@@ -94,99 +104,8 @@ export const mutations = {
   },
 }
 
-export const actions = {}
-// getUserInfo(context) {
-// const refreshToken = this.$cookiz.get('refreshToken')
-// const accessToken = this.$cookiz.get('userToken')
-// if (!refreshToken) {
-//   // store.state.loggedIn = false
-//   context.commit('islogin', false)
-//   // 쿠키 싹다 비우기
-// } else if (!accessToken) {
-//   try {
-//     const res = getTokkenwithrefreshToken(refreshToken)
-//     this.$cookiz.set('userToken', res.data.accessToken, {
-//       path: '/',
-//       maxAge: 60 * 60 * 24 * 7,
-//     })
-//     const userInfoRes = getUserInfo(res.data.accessToken)
-//     // store.state.username = userInfoRes.data.userName
-//     // store.state.loggedIn = true
-//     context.commit('userInfo', userInfoRes.data.userName)
+// export const actions = {
+//   login(context) {
 //     context.commit('islogin', true)
-//     // userinfo 호출
-//   } catch (e) {
-//     if (e.response.status === 401) {
-//       // store.state.loggedIn = false
-//       context.commit('islogin', false)
-//     }
-//   }
-// } else {
-//   try {
-//     const userInfoRes = getUserInfo(accessToken)
-//     console.log(userInfoRes)
-//     // store.state.username = userInfoRes.data.username
-//     // store.state.loggedIn = true
-//     context.commit('userInfo', userInfoRes.data.userName)
-//     context.commit('islogin', true)
-//   } catch (e) {
-//     console.log(e)
-//     if (e.response.status === 401) {
-//       try {
-//         const res = getTokkenwithrefreshToken(refreshToken)
-//         this.$cookiz.set('userToken', res.data.accessToken, {
-//           path: '/',
-//           maxAge: 60 * 60 * 24 * 7,
-//         })
-//         const userInfoRes = getUserInfo(res.data.accessToken)
-//         // store.state.username = userInfoRes.data.userName
-//         // store.state.loggedIn = true
-//         context.commit('userInfo', userInfoRes.data.userName)
-//         context.commit('islogin', true)
-//         // userinfo 호출
-//       } catch (e) {
-//         if (e.response.status === 401) {
-//           // store.state.loggedIn = false
-//           context.commit('islogin', false)
-//         }
-//       }
-//     }
-//   }
-// }
-// },
-
-//
-// function getTokkenwithrefreshToken(refreshToken) {
-//   console.log('/shop/user/refresh 호출')
-//   console.log(refreshToken)
-//   const res = this.$axios.get('/shop/user/refresh', {
-//     headers: {
-//       'x-refresh-token': refreshToken,
-//     },
-//   })
-//   res.then((obj) => {
-//     console.log(obj)
-//     return obj
-//   })
-// }
-//
-// function getUserInfo(accessToken) {
-//   console.log('/shop/user/userInfo 호출')
-//   const res = this.$axios.get('/shop/user/userInfo', {
-//     headers: {
-//       'x-access-token': accessToken,
-//     },
-//   })
-//   console.log('/shop/user/userInfo come')
-//   res
-//     .then((obj) => {
-//       console.log('------------------')
-//       console.log(obj)
-//       console.log('------------------')
-//       return obj
-//     })
-//     .catch((e) => {
-//       console.log('------------------')
-//       console.log(e)
-//     })
+//   },
 // }

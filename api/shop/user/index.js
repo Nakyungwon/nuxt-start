@@ -68,6 +68,7 @@ router.get('/check', authenticateAccessToken, (req, res, next) => {
 
 router.get('/userInfo', authenticateAccessToken, (req, res, next) => {
   // res.send('훌륭해요za11111! ' + Math.random())
+  console.log('come??????????????????????????')
   res.status(200).json({
     username: '나경원',
     status: 200,
@@ -92,7 +93,6 @@ router.get('/userInfo', authenticateAccessToken, (req, res, next) => {
 function refresshToken(req, res, next) {
   // const accessToken = req.headers['x-access-token']
   const refreshToken = req.headers['x-refresh-token']
-  console.log(refreshToken)
 
   const verifyRefreshPromise = new Promise((resolve, reject) => {
     jwt.verify(
@@ -107,7 +107,7 @@ function refresshToken(req, res, next) {
 
   verifyRefreshPromise
     .then((verifiedRefreshToken) => {
-      console.log(refreshToken)
+      // console.log(refreshToken)
       const accessToken = jwt.sign(
         {
           id: verifiedRefreshToken.id,
@@ -125,7 +125,7 @@ function refresshToken(req, res, next) {
       next()
     })
     .catch((e) => {
-      console.log('refresh tokken expired')
+      // console.log('refresh tokken expired')
       res.status(401).json({
         msg: 'refresh tokken expired',
         status: 401,
@@ -161,9 +161,9 @@ function authenticateAccessToken(req, res, next) {
       next()
     })
     .catch((e) => {
-      console.log('error')
+      // console.log('verify error')
       res.status(401).json({
-        success: true,
+        status: 401,
         msg: 'access token expired try refresh!',
       })
     })

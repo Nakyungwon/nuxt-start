@@ -7,9 +7,12 @@
           <a @click.prevent="addMain">{{ menu.name }}</a>
         </li>
       </ul>
-      <ul v-if="$store.state.loggedIn" class="inner_right">
+      <ul v-if="loggedIn" class="inner_right">
         <li>
-          <a>logout</a>
+          <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
+        </li>
+        <li>
+          <a @click.prevent="userLogout">logout</a>
         </li>
       </ul>
       <ul v-else class="inner_right">
@@ -32,6 +35,8 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+// import { loginddd } from '@/plugins/shop/auth'
+// const { mapState, mapMutations } = createNamespacedHelpers('shop')
 const { mapState } = createNamespacedHelpers('shop')
 export default {
   name: 'Header',
@@ -47,10 +52,18 @@ export default {
   //   this.$store.dispatch('getUserInfo')
   // },
   created() {
+    // console.log(this.$auth)
     // this.$store.dispatch('shop/getUserInfo')
   },
   computed: {
-    ...mapState(['top_left_menus', 'top_right_menus', 'bottom_menus']),
+    ...mapState([
+      'top_left_menus',
+      'top_right_menus',
+      'bottom_menus',
+      'loggedIn',
+      'username',
+    ]),
+    // ...mapMutations(['logout']),
   },
   methods: {
     addMain() {
@@ -61,6 +74,9 @@ export default {
     },
     goHome() {
       this.$router.push('/shop')
+    },
+    userLogout() {
+      this.$store.commit('shop/logout')
     },
   },
 }

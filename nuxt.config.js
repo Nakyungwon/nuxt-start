@@ -100,8 +100,8 @@ export default {
     // '~/plugins/vee-validate',
     // { src: '~/plugins/vue2-editor', ssr: false },
     // { src: '~/plugins/TiptapVuetify', mode: 'client' },
-    { src: '~/plugins/shop/sample' },
-    { src: '~/plugins/shop/axios' },
+    { src: '~/plugins/shop/auth/index', ssr: false },
+    // { src: '~/plugins/shop/axios' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -167,22 +167,23 @@ export default {
       common: {},
     },
   },
-  auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/shop/user/login',
-            method: 'post',
-            propertyName: 'access',
-          },
-          user: { url: '/check/', method: 'get', propertyName: false },
-        },
-      },
-    },
-  },
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/shop/user/login',
+  //           method: 'post',
+  //           propertyName: 'access',
+  //         },
+  //         user: { url: '/check/', method: 'get', propertyName: false },
+  //       },
+  //     },
+  //   },
+  // },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    // vendor: ['~/plugins/shop/auth'],
     // transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
   },
 
