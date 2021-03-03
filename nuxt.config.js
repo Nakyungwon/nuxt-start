@@ -100,7 +100,7 @@ export default {
     // '~/plugins/vee-validate',
     // { src: '~/plugins/vue2-editor', ssr: false },
     // { src: '~/plugins/TiptapVuetify', mode: 'client' },
-    { src: '~/plugins/shop/auth/index', ssr: false },
+    { src: '~/plugins/shop/auth/index' },
     // { src: '~/plugins/shop/axios' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -4,7 +4,9 @@
     <div class="menu_1">
       <ul class="inner_left">
         <li v-for="menu in top_left_menus" :key="menu.id">
-          <a @click.prevent="addMain">{{ menu.name }}</a>
+          <a @click.prevent="vuexFunc(menu.func, menu.param)">{{
+            menu.name
+          }}</a>
         </li>
       </ul>
       <ul v-if="loggedIn" class="inner_right">

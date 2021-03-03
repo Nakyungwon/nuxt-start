@@ -9,6 +9,7 @@ export const state = () => ({
     { name: 'NOTICE' },
     { name: 'REVIWE' },
     { name: 'EVENT' },
+    { name: 'product', func: 'renderPage', param: '/shop/product' },
     { name: 'add', func: 'addMain' },
   ],
   top_right_menus: [
@@ -32,8 +33,8 @@ export const getters = {
 export const mutations = {
   logout(state) {
     console.log('logout ..')
-    this.$cookiz.set('userToken', null)
-    this.$cookiz.set('refreshToken', null)
+    // this.$cookiz.set('userToken', null)
+    // this.$cookiz.set('refreshToken', null)
     state.username = null
     state.loggedIn = false
   },
@@ -55,21 +56,8 @@ export const mutations = {
     this.$router.push(param)
   },
   login(state) {
-    // this.$auth.login()
     console.log('login ...')
-    const loginResObj = this.$axios.post('/shop/user/login', {
-      id: 'saecomaster',
-    })
-    loginResObj.then((res) => {
-      this.$cookiz.set('userToken', res.data.accessToken, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7,
-      })
-      this.$cookiz.set('refreshToken', res.data.refreshToken, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7,
-      })
-    })
+    this.$authentication.login(this.$axios, 'saecomaster')
   },
 
   async getToken(state) {

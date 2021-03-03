@@ -92,6 +92,7 @@ router.get('/userInfo', authenticateAccessToken, (req, res, next) => {
 
 function refresshToken(req, res, next) {
   // const accessToken = req.headers['x-access-token']
+  console.log('-----------re-----------')
   const refreshToken = req.headers['x-refresh-token']
 
   const verifyRefreshPromise = new Promise((resolve, reject) => {
@@ -140,33 +141,34 @@ function authenticateAccessToken(req, res, next) {
       status: 401,
       msg: 'Token 없음',
     })
-  }
-  // getToken(accessToken, refreshToken)
-  const verifyPromise = new Promise((resolve, reject) => {
-    jwt.verify(
-      accessToken,
-      process.env.ACCESS_TOKEN_SECRET,
-      function (err, decoded) {
-        if (err) reject(err)
-        resolve(decoded)
-      }
-    )
-  })
+  } else {
+    // getToken(accessToken, refreshToken)
+    const verifyPromise = new Promise((resolve, reject) => {
+      jwt.verify(
+        accessToken,
+        process.env.ACCESS_TOKEN_SECRET,
+        function (err, decoded) {
+          if (err) reject(err)
+          resolve(decoded)
+        }
+      )
+    })
 
-  verifyPromise
-    .then((tokenDecoed) => {
-      console.log('success')
-      req.id = tokenDecoed.id
-      req.name = tokenDecoed.name
-      next()
-    })
-    .catch((e) => {
-      // console.log('verify error')
-      res.status(401).json({
-        status: 401,
-        msg: 'access token expired try refresh!',
+    verifyPromise
+      .then((tokenDecoed) => {
+        console.log('success')
+        req.id = tokenDecoed.id
+        req.name = tokenDecoed.name
+        next()
       })
-    })
+      .catch((e) => {
+        // console.log('verify error')
+        res.status(401).json({
+          status: 401,
+          msg: 'access token expired try refresh!',
+        })
+      })
+  }
 }
 
 module.exports = router
