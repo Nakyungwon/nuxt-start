@@ -1,38 +1,43 @@
 <template>
-  <header>
-    <div class="header_top" @click.prevent="goHome">logo</div>
-    <div class="menu_1">
-      <ul class="inner_left">
-        <li v-for="menu in top_left_menus" :key="menu.id">
-          <a @click.prevent="vuexFunc(menu.func, menu.param)">{{
-            menu.name
-          }}</a>
-        </li>
-      </ul>
-      <ul v-if="loggedIn" class="inner_right">
-        <li>
-          <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
-        </li>
-        <li>
-          <a @click.prevent="userLogout">logout</a>
-        </li>
-      </ul>
-      <ul v-else class="inner_right">
-        <li v-for="menu in top_right_menus" :key="menu.id">
-          <a class="pointer" @click.prevent="vuexFunc(menu.func, menu.param)">{{
-            menu.name
-          }}</a>
-        </li>
-      </ul>
-    </div>
-    <div class="menu_2">
-      <ul class="inner_left">
-        <li v-for="menu in bottom_menus" :key="menu.id">
-          {{ menu.name }}
-        </li>
-      </ul>
-    </div>
-  </header>
+  <client-only>
+    <header>
+      <div class="header_top" @click.prevent="goHome">logo</div>
+      <div class="menu_1">
+        <ul class="inner_left">
+          <li v-for="menu in top_left_menus" :key="menu.id">
+            <a
+              @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
+              >{{ menu.name }}</a
+            >
+          </li>
+        </ul>
+        <ul v-if="loggedIn" class="inner_right">
+          <li>
+            <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
+          </li>
+          <li>
+            <a @click.prevent="userLogout">logout</a>
+          </li>
+        </ul>
+        <ul v-else class="inner_right">
+          <li v-for="menu in top_right_menus" :key="menu.id">
+            <a
+              class="pointer"
+              @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
+              >{{ menu.name }}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="menu_2">
+        <ul class="inner_left">
+          <li v-for="menu in bottom_menus" :key="menu.id">
+            {{ menu.name }}
+          </li>
+        </ul>
+      </div>
+    </header>
+  </client-only>
 </template>
 
 <script>
@@ -71,8 +76,12 @@ export default {
     addMain() {
       this.$store.commit('shop/addMain')
     },
-    vuexFunc(func, param) {
-      this.$store.commit('shop/' + func, param)
+    vuexFunc(func, funcMode, param) {
+      if (funcMode === 'mutations') {
+        this.$store.commit('shop/' + func, param)
+      } else {
+        this.$store.dispatch('shop/' + func, param)
+      }
     },
     goHome() {
       this.$router.push('/shop')

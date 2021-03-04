@@ -6,7 +6,6 @@ class Authentication {
   }
 
   async login($axios, id) {
-    console.log('login .....')
     // const loginResObj = $axios.post('/shop/user/login', {
     //   id,
     // })
@@ -14,13 +13,15 @@ class Authentication {
       const apiResult = await this.callApi($axios, 'post', '/shop/user/login', {
         id,
       })
-      console.log(apiResult.data.accessToken)
-      console.log(apiResult.data.refreshToken)
       this.setCookie('userToken', apiResult.data.accessToken)
       this.setCookie('refreshToken', apiResult.data.refreshToken)
+      const userInfo = await this.callApiAuth(
+        $axios,
+        'get',
+        '/shop/user/userInfo'
+      )
       // if (res.status === 200) {
-      console.log(apiResult)
-      return true
+      return userInfo
     } catch (e) {
       console.log('login 실패..')
       console.log(e)
@@ -49,16 +50,29 @@ class Authentication {
     this.setCookie('refreshToken', null)
   }
 
-  async callApiAuth($axios, method, url, param = {}, headers = {}) {
+  async callApiAuth($axios, method, url, param = {}, headers = {}, count = 0) {
     headers['x-access-token'] = this.getCookie('userToken')
     let result = null
     try {
       result = await this.callApi($axios, method, url, param, headers)
+      // console.log(result)
     } catch (e) {
       if (e.response.status === 401) {
-        console.error('auth 만료 error')
-        this.refreshToken($axios, this.getCookie('refreshToken'))
-        // this.callApiAuth($axios, method, url, param, headers)
+        console.info(e.response.data.msg)
+        const isRefresh = await this.refreshToken(
+          $axios,
+          this.getCookie('refreshToken')
+        )
+        if (isRefresh && count < 5)
+          return await this.callApiAuth(
+            $axios,
+            method,
+            url,
+            param,
+            headers,
+            ++count
+          )
+        else console.info('not auth')
       } else {
         console.error('error')
       }
@@ -79,10 +93,10 @@ class Authentication {
     // })
     let promiseObj = null
     if (method === 'get') {
-      console.log('get', url, headers, '호출')
-      promiseObj = $axios.get(url, param, headers)
+      // console.log('get', url, headers, '호출')
+      promiseObj = $axios.get(url, { headers }, { params: param })
     } else if (method === 'post') {
-      console.log('post', url, '호출')
+      // console.log('post', url, '호출')
       promiseObj = $axios.post(url, param, headers)
     }
 
@@ -105,25 +119,43 @@ class Authentication {
   }
 
   getCookie(key) {
-    console.log('getcookie')
     return this.cookiz.get(key)
   }
 
-  refreshToken($axios, refreshToken) {
-    const promiseObj = $axios.get('/shop/user/refresh', {
-      headers: {
-        'x-refresh-token': refreshToken,
-      },
-    })
-    promiseObj
+  async refreshToken($axios, refreshToken) {
+    let isRefresh = null
+    // const result =
+    await $axios
+      .get('/shop/user/refresh', {
+        headers: {
+          'x-refresh-token': refreshToken,
+        },
+      })
       .then((result) => {
-        this.setCookie('userToken', result.accessToken)
+        console.log('token refreshed!')
+        this.setCookie('userToken', result.data.accessToken)
+        isRefresh = true
       })
       .catch((e) => {
-        console.log(e.response.status)
-        console.log('refreshTokken 만료')
+        console.error(e.response.data.msg)
         this.logout()
+        isRefresh = false
       })
+
+    return isRefresh
+
+    // promiseObj
+    //   .then((result) => {
+    //     this.setCookie('userToken', result.accessToken)
+    //     isRefresh = true
+    //     console.log(isRefresh)
+    //   })
+    //   .catch((e) => {
+    //     this.logout()
+    //     isRefresh = false
+    //     console.log(isRefresh)
+    //   })
+    // return promiseObj
   }
 }
 
