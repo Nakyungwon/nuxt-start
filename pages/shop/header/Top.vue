@@ -14,6 +14,7 @@
         <ul v-if="loggedIn" class="inner_right">
           <li>
             <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
+            <a @click.prevent="decodeToken">decodeToken</a>
           </li>
           <li>
             <a @click.prevent="userLogout">logout</a>
@@ -26,6 +27,9 @@
               @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
               >{{ menu.name }}</a
             >
+          </li>
+          <li>
+            <input v-model="userId" type="text" @change="inputId" />
           </li>
         </ul>
       </div>
@@ -44,11 +48,12 @@
 import { createNamespacedHelpers } from 'vuex'
 // import { loginddd } from '@/plugins/shop/auth'
 // const { mapState, mapMutations } = createNamespacedHelpers('shop')
-const { mapState } = createNamespacedHelpers('shop')
+const { mapState, mapMutations } = createNamespacedHelpers('shop')
 export default {
   name: 'Header',
   data() {
     return {
+      userId: '',
       form: {
         email: '',
         password: '',
@@ -70,9 +75,14 @@ export default {
       'loggedIn',
       'username',
     ]),
-    // ...mapMutations(['logout']),
   },
   methods: {
+    ...mapMutations(['inputLoginText']),
+    inputId() {
+      // this.$store.commit('shop/inputLoginText', this.userId)
+      this.inputLoginText(this.userId)
+      // this.$store.commit('shop/inputLoginText', this.userId)
+    },
     addMain() {
       this.$store.commit('shop/addMain')
     },
@@ -80,6 +90,9 @@ export default {
       if (funcMode === 'mutations') {
         this.$store.commit('shop/' + func, param)
       } else {
+        // this.$auth.loginWith('local', {
+        //   data: { id: this.userId },
+        // })
         this.$store.dispatch('shop/' + func, param)
       }
     },
@@ -88,6 +101,10 @@ export default {
     },
     userLogout() {
       this.$store.commit('shop/logout')
+    },
+    decodeToken() {
+      console.log('ddd')
+      this.$authentication.decodeToken()
     },
   },
 }

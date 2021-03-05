@@ -15,7 +15,6 @@ export default async function ({ $axios, store, app, res, req }, inject) {
     })
     const userInfo = await authentication.callApiAuth(
       $axios,
-      'get',
       '/shop/user/userInfo'
     )
 

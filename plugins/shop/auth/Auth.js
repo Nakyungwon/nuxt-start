@@ -1,3 +1,4 @@
+import { decode } from 'jsonwebtoken'
 class Authentication {
   constructor({ Storage, $cookiz, expires = 30 } = {}) {
     this.Storage = Storage
@@ -43,6 +44,11 @@ class Authentication {
     // } else {
     //   console.log('login 실패 ..')
     // }
+  }
+
+  decodeToken() {
+    const decodedToken = decode(this.getCookie('userToken'))
+    console.log(decodedToken)
   }
 
   logout() {

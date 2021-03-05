@@ -13,6 +13,7 @@ router.get('/test', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
   // res.send('훌륭해요za11111! ' + Math.random())
+  console.log(req.body)
   const id = req.body.id
   let name = null
   users.forEach((e) => {
@@ -20,6 +21,14 @@ router.post('/login', (req, res, next) => {
       name = e.name
     }
   })
+  if (name === null) {
+    console.log('no account')
+    res.status(403).json({
+      msg: '없는 사람입니다.',
+      status: 403,
+    })
+    return
+  }
 
   const accessToken = jwt.sign(
     {
@@ -47,7 +56,12 @@ router.post('/login', (req, res, next) => {
     }
   )
 
-  res.send({ accessToken, refreshToken, status: 200 })
+  // res.send({ accessToken, refreshToken, status: 200 })
+  res.status(200).json({
+    accessToken,
+    refreshToken,
+    status: 200,
+  })
 })
 
 router.get('/refresh', refresshToken, (req, res) => {
@@ -58,19 +72,17 @@ router.get('/refresh', refresshToken, (req, res) => {
   })
 })
 
-router.get('/check', authenticateAccessToken, (req, res, next) => {
-  // res.send('훌륭해요za11111! ' + Math.random())
-  res.status(200).json({
-    msg: 'tokken 정상',
-    status: 200,
-  })
-})
-
 router.get('/userInfo', authenticateAccessToken, (req, res, next) => {
   // res.send('훌륭해요za11111! ' + Math.random())
-  console.log('come??????????????????????????')
+  const id = req.id
+  let name = null
+  users.forEach((e) => {
+    if (id === e.id) {
+      name = e.name
+    }
+  })
   res.status(200).json({
-    username: '나경원',
+    username: name,
     status: 200,
   })
 })

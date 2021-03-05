@@ -2,6 +2,7 @@ export const state = () => ({
   main_products: [
     require('@/assets/images/main/1055748554.jpg'),
     require('@/assets/images/main/1055748554.jpg'),
+    1,
   ],
   top_left_menus: [
     { name: 'NOTICE' },
@@ -11,8 +12,13 @@ export const state = () => ({
     { name: 'add', func: 'addMain' },
   ],
   top_right_menus: [
-    { name: 'LOGIN', func: 'actionlogin', funcMode: 'actions' },
-    { name: 'GETTOKEN', func: 'getToken', funcMode: 'mutations' },
+    { name: 'LOGIN', func: 'actionLogin', funcMode: 'actions', param: '' },
+    // {
+    //   name: 'LOGINAUTH',
+    //   func: 'actionLoginAuth',
+    //   funcMode: 'actions',
+    //   param: '',
+    // },
     {
       name: 'MYPAGE',
       func: 'renderPage',
@@ -39,12 +45,19 @@ export const getters = {
 }
 
 export const mutations = {
+  inputLoginText(state, userId) {
+    console.log(userId)
+    // console.log(state.top_right_menus[0])
+    state.top_right_menus[0].param = userId
+    state.top_right_menus[1].param = userId
+  },
   logout(state) {
     console.log('logout ..')
     // this.$cookiz.set('userToken', null)
     // this.$cookiz.set('refreshToken', null)
     state.username = null
     state.loggedIn = false
+    this.$authentication.logout()
   },
   islogin(state, isParam) {
     state.loggedIn = isParam
@@ -68,14 +81,24 @@ export const mutations = {
 }
 
 export const actions = {
-  actionlogin(context, username) {
+  actionLogin(context, username) {
+    console.log(username)
     this.$authentication
-      .login(this.$axios, 'saecomaster')
+      .login(this.$axios, username)
       .then((result) => {
         context.commit('login', result.data.username)
       })
       .catch((e) => {
         console.error('login 실패...')
+      })
+  },
+  actionLoginAuth(context, userId) {
+    this.$auth
+      .loginWith('local', {
+        data: { id: userId },
+      })
+      .then((result) => {
+        console.log(result)
       })
   },
 }

@@ -31,31 +31,6 @@ export default {
     // },
   },
   // mode: 'universal',
-  // auth: {
-  //   localStorage: false,
-  //   cookie: {
-  //     options: {
-  //       expires: 7,
-  //     },
-  //   },
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           url: '/shop/user/login',
-  //           method: 'post',
-  //           propertyName: false,
-  //         },
-  //         logout: false,
-  //         user: { url: '/shop/user/check', method: 'get', propertyName: false },
-  //       },
-  //     },
-  //   },
-  //   plugins: [
-  //     '~/plugins/axios.js',
-  //     { src: '~/plugins/auth.js', mode: 'client' },
-  //   ],
-  // },
   head: {
     title: 'nuxt-start',
     meta: [
@@ -163,26 +138,19 @@ export default {
     baseURL: process.env.BASE_URL,
     proxy: true,
     proxyHeaders: true,
+    retry: false,
     headers: {
       common: {},
     },
   },
-  // auth: {
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {
-  //           url: '/shop/user/login',
-  //           method: 'post',
-  //           propertyName: 'access',
-  //         },
-  //         user: { url: '/check/', method: 'get', propertyName: false },
-  //       },
-  //     },
-  //   },
-  // },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    devMiddleware: {
+      headers: {
+        'Cache-Control': 'no-store',
+        Vary: '*',
+      },
+    },
     // vendor: ['~/plugins/shop/auth'],
     // transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
   },
