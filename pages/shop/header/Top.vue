@@ -1,56 +1,63 @@
 <template>
-  <client-only>
-    <header>
-      <div class="header_top" @click.prevent="goHome">logo</div>
-      <div class="menu_1">
-        <ul class="inner_left">
-          <li v-for="menu in top_left_menus" :key="menu.id">
-            <a
-              @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
-              >{{ menu.name }}</a
-            >
-          </li>
-        </ul>
-        <ul v-if="loggedIn" class="inner_right">
-          <li>
-            <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
-            <a @click.prevent="decodeToken">decodeToken</a>
-          </li>
-          <li>
-            <a @click.prevent="userLogout">logout</a>
-          </li>
-        </ul>
-        <ul v-else class="inner_right">
-          <li v-for="menu in top_right_menus" :key="menu.id">
-            <a
-              class="pointer"
-              @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
-              >{{ menu.name }}</a
-            >
-          </li>
-          <li>
-            <input v-model="userId" type="text" @change="inputId" />
-          </li>
-        </ul>
-      </div>
-      <div class="menu_2">
-        <ul class="inner_left">
-          <li v-for="menu in bottom_menus" :key="menu.id">
-            {{ menu.name }}
-          </li>
-        </ul>
-      </div>
-    </header>
-  </client-only>
+  <header>
+    <div class="header_top" @click.prevent="goHome">logo</div>
+    <div class="menu_1">
+      <ul class="inner_left">
+        <li v-for="menu in top_left_menus" :key="menu.id">
+          <a @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)">{{
+            menu.name
+          }}</a>
+        </li>
+      </ul>
+      <ul v-if="loggedIn" class="inner_right">
+        <li>
+          <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
+          <a @click.prevent="decodeToken">decodeToken</a>
+        </li>
+        <li>
+          <a @click.prevent="userLogout">logout</a>
+        </li>
+      </ul>
+      <ul v-else class="inner_right">
+        <li v-for="menu in top_right_menus" :key="menu.id">
+          <a
+            class="pointer"
+            @click.prevent="vuexFunc(menu.func, menu.funcMode, menu.param)"
+            >{{ menu.name }}
+          </a>
+        </li>
+        <li>
+          <input v-model="userId" type="text" @change="inputId" />
+        </li>
+      </ul>
+    </div>
+    <div class="menu_2">
+      <ul class="inner_left">
+        <li v-for="menu in bottom_menus" :key="menu.id">
+          {{ menu.name }}
+        </li>
+      </ul>
+    </div>
+    <div id="naverIdLogin"></div>
+    <Login
+      v-if="isModalViewed"
+      @close-modal="vuexFunc('userModal', 'mutations', false)"
+    >
+      <LoginFormat />
+    </Login>
+  </header>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import Login from '@/pages/shop/modal/Login'
+import LoginFormat from '@/pages/shop/user/loginFormat'
 // import { loginddd } from '@/plugins/shop/auth'
 // const { mapState, mapMutations } = createNamespacedHelpers('shop')
 const { mapState, mapMutations } = createNamespacedHelpers('shop')
 export default {
   name: 'Header',
+  components: { LoginFormat, Login },
   data() {
     return {
       userId: '',
@@ -74,7 +81,21 @@ export default {
       'bottom_menus',
       'loggedIn',
       'username',
+      'isModalViewed',
     ]),
+  },
+  mounted() {
+    const naverLogin = new naver.LoginWithNaverId({
+      clientId: 'lLQJ4RNgbF5KTgqpqiLO',
+      callbackUrl: 'http://localhost:5000/shop',
+      isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
+      loginButton: {
+        color: 'green',
+        type: 2,
+        height: 47,
+      } /* 로그인 버튼의 타입을 지정 */,
+    })
+    naverLogin.init()
   },
   methods: {
     ...mapMutations(['inputLoginText']),
@@ -96,6 +117,7 @@ export default {
         this.$store.dispatch('shop/' + func, param)
       }
     },
+
     goHome() {
       this.$router.push('/shop')
     },
@@ -103,7 +125,6 @@ export default {
       this.$store.commit('shop/logout')
     },
     decodeToken() {
-      console.log('ddd')
       this.$authentication.decodeToken()
     },
   },

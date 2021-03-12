@@ -61,12 +61,11 @@ export default {
       },
     ],
     script: [
-      {
-        src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js',
-      },
-      {
-        src: 'https://kit.fontawesome.com/a076d05399.js',
-      },
+      { src: 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js' },
+      // { src: 'https://developers.kakao.com/sdk/js/kakao.min.js' },
+      // {
+      //   src: 'https://kit.fontawesome.com/a076d05399.js',
+      // },
     ],
   },
 
@@ -75,7 +74,7 @@ export default {
     // '~/plugins/vee-validate',
     // { src: '~/plugins/vue2-editor', ssr: false },
     // { src: '~/plugins/TiptapVuetify', mode: 'client' },
-    { src: '~/plugins/shop/auth/index' },
+    { src: '~/plugins/shop/auth/index', mode: 'client' },
     // { src: '~/plugins/shop/axios' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)

@@ -40,7 +40,6 @@
             src="~/static/socialLogIn/naver.PNG"
           />
         </div>
-        <div id="naverIdLogin"></div>
       </form>
     </b-modal>
   </ValidationObserver>

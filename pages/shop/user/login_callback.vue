@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Naver',
+  name: 'LoginCallback',
 }
 </script>
 

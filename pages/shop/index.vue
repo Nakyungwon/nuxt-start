@@ -28,6 +28,11 @@ export default {
   name: 'IndexVue',
   auth: false,
   components: { Top, Bottom },
+  data() {
+    return {
+      isModalViewed: false,
+    }
+  },
   computed: { ...mapState(['main_products']) },
 }
 </script>
