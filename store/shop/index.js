@@ -25,12 +25,6 @@ export const state = () => ({
     //   param: '',
     // },
     {
-      name: '네아로',
-      func: 'naverlogin',
-      funcMode: 'mutations',
-      // param: '/shop/user/mypage',
-    },
-    {
       name: '모달',
       func: 'userModal',
       funcMode: 'mutations',
@@ -100,29 +94,29 @@ export const mutations = {
     state.loggedIn = true
     state.username = username
   },
-  naverlogin(state, naverLogin) {
-    const that = this
-    naverLogin.getLoginStatus(function (status) {
-      console.log(status)
-      if (status) {
-        const email = naverLogin.user.getEmail()
-        const name = naverLogin.user.getName()
-        const profileImage = naverLogin.user.getProfileImage()
-        const birthday = naverLogin.user.getBirthday()
-        const uniqId = naverLogin.user.getId()
-        const age = naverLogin.user.getAge()
-        console.log(email)
-        console.log(name)
-        console.log(profileImage)
-        console.log(birthday)
-        console.log(uniqId)
-        console.log(age)
-      } else {
-        console.log('AccessToken이 올바르지 않습니다.')
-      }
-      that.$router.push('/shop')
-    })
-  },
+  // naverlogin(state, naverLogin) {
+  //   const that = this
+  //   naverLogin.getLoginStatus(function (status) {
+  //     console.log(status)
+  //     if (status) {
+  //       const email = naverLogin.user.getEmail()
+  //       const name = naverLogin.user.getName()
+  //       const profileImage = naverLogin.user.getProfileImage()
+  //       const birthday = naverLogin.user.getBirthday()
+  //       const uniqId = naverLogin.user.getId()
+  //       const age = naverLogin.user.getAge()
+  //       console.log(email)
+  //       console.log(name)
+  //       console.log(profileImage)
+  //       console.log(birthday)
+  //       console.log(uniqId)
+  //       console.log(age)
+  //     } else {
+  //       console.log('AccessToken이 올바르지 않습니다.')
+  //     }
+  //     that.$router.push('/shop')
+  //   })
+  // },
 }
 
 export const actions = {

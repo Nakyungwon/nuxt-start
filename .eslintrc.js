@@ -18,5 +18,7 @@ module.exports = {
   // add your custom rules here
   globals: {
     naver: false,
+    Kakao: false,
+    AWS: false,
   },
 }

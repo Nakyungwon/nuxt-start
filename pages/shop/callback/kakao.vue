@@ -5,6 +5,7 @@
 <script>
 export default {
   name: 'LoginCallback',
+  mounted() {},
 }
 </script>
 

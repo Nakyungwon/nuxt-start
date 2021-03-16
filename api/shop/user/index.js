@@ -1,11 +1,62 @@
 const { Router } = require('express')
 const router = Router()
 const jwt = require('jsonwebtoken')
+// const AWS = require('aws-sdk')
+// require('cross-fetch/polyfill')
+const AmazonCognitoIdentity = require('amazon-cognito-identity-js')
+const poolData = {
+  UserPoolId: 'ap-northeast-2_uw25GdjVy', // Your user pool id here
+  ClientId: '4coqbluqj327cgc86qqh9eieav', // Your client id here
+}
+const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData)
+// const credentials = new AWS.CognitoIdentityCredentials({
+//   IdentityPoolId: 'ap-northeast-2_uw25GdjVy',
+// })
+// console.log(credentials)
+// AWS.config.credentials = credentials
+// AWS.config.region = 'ap-northeast-2'
 
+// const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider()
 const users = [
   { id: 'saecomaster', name: 'kyungwon-na' },
   { id: 'gogo', name: '2jieun' },
 ]
+
+router.post('/signIn', (req, res, next) => {
+  const attributeList = []
+
+  const dataEmail = {
+    Name: 'email',
+    Value: 'saecomaster@naver.com',
+  }
+
+  const attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(
+    dataEmail
+  )
+  // const attributePhoneNumber = new AmazonCognitoIdentity.CognitoUserAttribute(
+  //   dataPhoneNumber
+  // )
+
+  attributeList.push(attributeEmail)
+  // attributeList.push(attributePhoneNumber)
+  userPool.signUp(
+    'saecomaster',
+    'sksmssk12!',
+    attributeList,
+    null,
+    function (err, result) {
+      if (err) {
+        console.log(err.message || JSON.stringify(err))
+        // return
+        res.json({ msg: 'error' })
+        return
+      }
+      const cognitoUser = result.user
+      console.log('user name is ' + cognitoUser.getUsername())
+      res.json({ msg: 'succescc' })
+    }
+  )
+})
 
 router.get('/test', (req, res, next) => {
   res.status(200).json({ 'msg:': 'zzz' })

@@ -38,7 +38,6 @@
         </li>
       </ul>
     </div>
-    <div id="naverIdLogin"></div>
     <Login
       v-if="isModalViewed"
       @close-modal="vuexFunc('userModal', 'mutations', false)"
@@ -50,7 +49,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import Login from '@/pages/shop/modal/Login'
+import Login from '@/pages/shop/modal/modalArea'
 import LoginFormat from '@/pages/shop/user/loginFormat'
 // import { loginddd } from '@/plugins/shop/auth'
 // const { mapState, mapMutations } = createNamespacedHelpers('shop')
@@ -83,19 +82,6 @@ export default {
       'username',
       'isModalViewed',
     ]),
-  },
-  mounted() {
-    const naverLogin = new naver.LoginWithNaverId({
-      clientId: 'lLQJ4RNgbF5KTgqpqiLO',
-      callbackUrl: 'http://localhost:5000/shop',
-      isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
-      loginButton: {
-        color: 'green',
-        type: 2,
-        height: 47,
-      } /* 로그인 버튼의 타입을 지정 */,
-    })
-    naverLogin.init()
   },
   methods: {
     ...mapMutations(['inputLoginText']),
