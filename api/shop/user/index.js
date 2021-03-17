@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 const jwt = require('jsonwebtoken')
-// const AWS = require('aws-sdk')
+const AWS = require('aws-sdk')
 // require('cross-fetch/polyfill')
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js')
 const poolData = {
@@ -56,6 +56,111 @@ router.post('/signIn', (req, res, next) => {
       res.json({ msg: 'succescc' })
     }
   )
+})
+
+router.post('/signConfirm', (req, res, next) => {
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData)
+  const userData = {
+    Username: 'saecomaster',
+    Pool: userPool,
+  }
+
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
+  cognitoUser.confirmRegistration('674860', true, function (err, result) {
+    if (err) {
+      res.json({ msg: 'error' })
+      return
+    }
+    res.json({ msg: 'success' })
+    console.log('call result: ' + result)
+  })
+})
+
+router.post('/generateToken', (req, res, next) => {
+  const authenticationData = {
+    Username: 'saecomaster',
+    Password: 'sksmssk12!',
+  }
+  const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+    authenticationData
+  )
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData)
+  const userData = {
+    Username: 'saecomaster',
+    Pool: userPool,
+  }
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
+  cognitoUser.authenticateUser(authenticationDetails, {
+    onSuccess(result) {
+      const accessToken = result.getAccessToken().getJwtToken()
+      const idToken = result.getIdToken().getJwtToken()
+      console.log(accessToken)
+
+      // POTENTIAL: Region needs to be set if not already set previously elsewhere.
+      AWS.config.region = 'ap-northeast-2'
+
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'ap-northeast-2:46e37bba-5b48-40c2-b539-54bbf6e0cfbe', // your identity pool id here
+        Logins: {
+          // Change the key below according to the specific region your user pool is in.
+          // 'cognito-idp:ap-northeast-2:412412730148:userpool/ap-northeast-2_uw25GdjVy': result
+          //   .getIdToken()
+          //   .getJwtToken(),
+          'cognito-idp.ap-northeast-2.amazonaws.com/ap-northeast-2_uw25GdjVy': idToken,
+        },
+        LoginId: 'saecomaster@naver.com',
+      })
+
+      // refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+      AWS.config.credentials.refresh((error) => {
+        if (error) {
+          console.error(error)
+          res.json({ msg: 'error', accessToken })
+        } else {
+          // Instantiate aws sdk service objects now that the credentials have been updated.
+          // example: var s3 = new AWS.S3();
+          cognitoUser.getUserAttributes(function (err, result) {
+            if (err) {
+              console.log(err.message || JSON.stringify(err))
+              res.json({ msg: 'error' })
+              return
+            }
+            result.forEach((el) => {
+              console.log(
+                'attribute ' + el.getName() + ' has value ' + el.getValue()
+              )
+              // res.json({ msg: 'success' })
+            })
+          })
+          res.json({ msg: 'success', accessToken })
+        }
+      })
+    },
+
+    onFailure(err) {
+      console.log(err.message || JSON.stringify(err))
+    },
+  })
+})
+
+router.get('/userlist', (req, res, next) => {
+  const userData = {
+    Username: 'saecomaster',
+    Pool: userPool,
+  }
+
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
+  cognitoUser.getUserAttributes(function (err, result) {
+    if (err) {
+      console.log(err.message || JSON.stringify(err))
+      res.json({ msg: 'error' })
+      return
+    }
+    result.forEach((el) => {
+      console.log('attribute ' + el.getName() + ' has value ' + el.getValue())
+      res.json({ msg: 'success' })
+    })
+  })
 })
 
 router.get('/test', (req, res, next) => {
