@@ -1,8 +1,9 @@
 <template>
   <div>
     <div>
-      <input type="text" />
-      <input type="password" />
+      <input v-model="userId" type="text" />
+      <input v-model="userId" type="password" />
+      <button @click.prevent="userLogin">로긴</button>
     </div>
     <div style="display: flex; align-items: center; justify-content: center">
       <div class="social_button"><button id="naverIdLogin"></button></div>
@@ -16,6 +17,12 @@
 <script>
 export default {
   name: 'LoginFormat',
+  data() {
+    return {
+      userId: '',
+      userPassword: '',
+    }
+  },
   mounted() {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: 'lLQJ4RNgbF5KTgqpqiLO',
@@ -37,6 +44,7 @@ export default {
         redirectUri: `${window.location.origin}/shop/callback/kakao`,
       })
     },
+    userLogin() {},
   },
 }
 </script>

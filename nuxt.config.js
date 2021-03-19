@@ -95,6 +95,7 @@ export default {
     '@nuxtjs/axios',
     // '@nuxtjs/vuetify',
     '@nuxtjs/auth',
+    // '@nuxtjs/aws-amplify',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/device',
@@ -153,6 +154,39 @@ export default {
     },
     // vendor: ['~/plugins/shop/auth'],
     // transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      automaticNameDelimiter: '.',
+      cacheGroups: {
+        'aws-amplify': {
+          test: /[\\/]node_modules[\\/]@aws-amplify[\\/]/,
+          priority: -10,
+          name: 'aws-amplify',
+          reuseExistingChunk: true,
+        },
+        'amazon-cognito-identity': {
+          test: /[\\/]node_modules[\\/]amazon-cognito-identity[\\/]/,
+          priority: -10,
+          name: 'amazon-cognito-identity',
+          reuseExistingChunk: true,
+        },
+        'aws-sdk': {
+          test: /[\\/]node_modules[\\/]aws-sdk[\\/]/,
+          priority: -10,
+          name: 'aws-sdk',
+          reuseExistingChunk: true,
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -30,
+          name: 'vendors',
+          chunks: 'all',
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
 
   serverMiddleware: [
