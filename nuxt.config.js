@@ -75,7 +75,7 @@ export default {
     // '~/plugins/vee-validate',
     // { src: '~/plugins/vue2-editor', ssr: false },
     // { src: '~/plugins/TiptapVuetify', mode: 'client' },
-    { src: '~/plugins/shop/auth/index', mode: 'client' },
+    { src: '~/plugins/shop/auth/index' },
     // { src: '~/plugins/shop/axios' },
   ],
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -187,6 +187,12 @@ export default {
         },
       },
     },
+  },
+  env: {
+    // baseUrl: 'https://www.staypia.com',
+    cryptoKey: 'KWNA',
+    // gtmID: 'GTM-5X9NXG3',
+    // canonical: 'https://www.staypia.com'
   },
 
   serverMiddleware: [

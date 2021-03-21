@@ -2,7 +2,7 @@
   <div>
     <div>
       <input v-model="userId" type="text" />
-      <input v-model="userId" type="password" />
+      <input v-model="userPassword" type="password" />
       <button @click.prevent="userLogin">로긴</button>
     </div>
     <div style="display: flex; align-items: center; justify-content: center">
@@ -19,8 +19,8 @@ export default {
   name: 'LoginFormat',
   data() {
     return {
-      userId: '',
-      userPassword: '',
+      userId: 'saecomaster',
+      userPassword: 'sksmssk12!',
     }
   },
   mounted() {
@@ -44,7 +44,9 @@ export default {
         redirectUri: `${window.location.origin}/shop/callback/kakao`,
       })
     },
-    userLogin() {},
+    userLogin() {
+      this.$cognitoAuth.signIn(this.userId, this.userPassword)
+    },
   },
 }
 </script>
@@ -52,7 +54,7 @@ export default {
 <style scoped lang="scss">
 button {
   text-align: center;
-  font-size: 0;
+  //font-size: 0;
   display: inline-block;
   margin: 0 30px 0 0;
   width: 44px;

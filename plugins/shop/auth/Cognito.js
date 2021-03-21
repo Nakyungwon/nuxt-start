@@ -1,4 +1,5 @@
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
+import { encryptData } from '@/utils'
 // import { encryptData } from '@/utils'
 import {
   CognitoRefreshToken,
@@ -11,6 +12,7 @@ import {
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js'
 import Amplify from '@aws-amplify/core'
+// import auth from '@/middleware/shop/user/auth'
 // import AmplifyAuth from '@aws-amplify/auth'
 // import { getAllCookies, addCookie, removeCookie } from './helpers/cookies'
 export {
@@ -132,38 +134,42 @@ class CognitoAuth {
   //   })
   // }
   //
-  // signIn(username, password) {
-  //   try {
-  //     if (!username || !password) {
-  //       throw new Error('signIn 메서드 파라미터 값을 확인하세요.')
-  //     }
-  //     const tmpCognitoUser = this.getCognitoUser(username)
-  //     const authenticationData = {
-  //       Username: username,
-  //       Password: password,
-  //     }
-  //     const authenticationDetails = new AuthenticationDetails(
-  //       authenticationData
-  //     )
-  //     return new Promise((resolve, reject) => {
-  //       return tmpCognitoUser.authenticateUser(authenticationDetails, {
-  //         onSuccess: (session) => {
-  //           const tokens = this.getTokens(session)
-  //           const { refreshToken } = tokens
-  //           this.setDataInCookie(refreshToken, username)
-  //           resolve({ userData: this.getUserData(session), tokens })
-  //         },
-  //         onFailure: (err) => {
-  //           // console.error(err)
-  //           reject(this.errorMessages[err.code])
-  //         },
-  //       })
-  //     })
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
-  //
+  signIn(username, password) {
+    try {
+      if (!username || !password) {
+        throw new Error('signIn 메서드 파라미터 값을 확인하세요.')
+      }
+      const tmpCognitoUser = this.getCognitoUser(username)
+      const authenticationData = {
+        Username: username,
+        Password: password,
+      }
+      const authenticationDetails = new AuthenticationDetails(
+        authenticationData
+      )
+      console.log(tmpCognitoUser)
+      console.log(authenticationDetails)
+      console.log(authenticationDetails)
+      return new Promise((resolve, reject) => {
+        return tmpCognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: (session) => {
+            const tokens = this.getTokens(session)
+            console.log(tokens)
+            const { refreshToken } = tokens
+            this.setDataInCookie(refreshToken, username)
+            resolve({ userData: this.getUserData(session), tokens })
+          },
+          onFailure: (err) => {
+            console.error(err)
+            reject(this.errorMessages[err.code])
+          },
+        })
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   // signUp({
   //   email: username,
   //   password,
@@ -255,23 +261,26 @@ class CognitoAuth {
   //   }
   // }
   //
-  // getUserData(session) {
-  //   const { username, exp } = session.accessToken.payload
-  //   const info = session.idToken.payload
-  //   return {
-  //     username,
-  //     exp,
-  //     info,
-  //   }
-  // }
-  //
-  // getTokens(session) {
-  //   return {
-  //     accessToken: session.getAccessToken().getJwtToken(),
-  //     idToken: session.getIdToken().getJwtToken(),
-  //     refreshToken: session.getRefreshToken().getToken(),
-  //   }
-  // }
+  getUserData(session) {
+    const { username, exp } = session.accessToken.payload
+    console.log('username', username)
+    console.log('exp', exp)
+    const info = session.idToken.payload
+    return {
+      username,
+      exp,
+      info,
+    }
+  }
+
+  getTokens(session) {
+    return {
+      accessToken: session.getAccessToken().getJwtToken(),
+      idToken: session.getIdToken().getJwtToken(),
+      refreshToken: session.getRefreshToken().getToken(),
+    }
+  }
+
   //
   // // getTokensInStorage() {
   // //   const keys = Object.keys(sessionStorage).filter(
@@ -285,18 +294,29 @@ class CognitoAuth {
   // //     }, {})
   // //   )
   // // }
-  // setDataInCookie(token, username = this.cognitoUser.username) {
-  //   const tokenName = `${this.prefix}t`
-  //   const user = `${this.prefix}n`
-  //   const userdata = encryptData(username)
-  //   const domain = this.dev ? undefined : this.domain
-  //   const refreshToken = encryptData({ token, username: userdata })
-  //   addCookie(tokenName, refreshToken, {
-  //     expires: this.expires,
-  //     domain,
-  //   })
-  //   addCookie(user, userdata, { expires: this.expires, domain })
-  // }
+  setDataInCookie(token, username = this.cognitoUser.username) {
+    // const tokenName = `${this.prefix}t`
+    // const user = `${this.prefix}n`
+    // const userdata = encryptData(username)
+    // const domain = this.dev ? undefined : this.domain
+    // const refreshToken = encryptData({ token, username: userdata })
+    const tokenName = `${this.prefix}t`
+    console.log('tokenName', tokenName)
+    const user = `${this.prefix}n`
+    console.log('user', user)
+    const userdata = encryptData(username)
+    console.log('userdata', userdata)
+    const domain = this.dev ? undefined : this.domain
+    console.log('domain', domain)
+    const refreshToken = encryptData({ token, username: userdata })
+    console.log('refreshToken', refreshToken)
+    Cookies.set(tokenName, refreshToken, {
+      expires: this.expires,
+      domain,
+    })
+    Cookies.set(user, userdata, { expires: this.expires, domain })
+  }
+
   //
   // removeDataInCookie() {
   //   const tokenName = `${this.prefix}t`
@@ -320,15 +340,19 @@ class CognitoAuth {
   //   this.removeCookie(name)
   // }
   //
-  // setRefreshSessionCookie() {
-  //   const name = `${this.prefix}s`
-  //   const expires = new Date(new Date().getTime() + 60 * 60 * 1000)
-  //   const domain = this.dev ? undefined : this.domain
-  //   Cookies.set(name, 1, {
-  //     expires,
-  //     domain,
-  //   })
-  // }
+  setRefreshSessionCookie() {
+    const name = `${this.prefix}s`
+    const expires = new Date(new Date().getTime() + 60 * 60 * 1000)
+    const domain = this.dev ? undefined : this.domain
+    console.log(name)
+    console.log(expires)
+    console.log(domain)
+    Cookies.set(name, 1, {
+      expires,
+      domain,
+    })
+  }
+
   //
   // hasRefreshSessionCookie() {
   //   return !!Cookies.get('__staypia__s')

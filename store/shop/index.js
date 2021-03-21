@@ -47,6 +47,10 @@ export const state = () => ({
   // authToken: null,
   username: null,
   loggedIn: false,
+  session: null,
+  refreshToken: null, // temp
+  accessToken: null,
+  idToken: null,
 })
 
 export const getters = {
@@ -93,6 +97,10 @@ export const mutations = {
   login(state, username) {
     state.loggedIn = true
     state.username = username
+  },
+  SET_SESSION(state, { token, name }) {
+    state.refreshToken = token
+    state.username = name
   },
   // naverlogin(state, naverLogin) {
   //   const that = this
