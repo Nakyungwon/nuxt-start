@@ -51,6 +51,7 @@ export const state = () => ({
   refreshToken: null, // temp
   accessToken: null,
   idToken: null,
+  user: false,
 })
 
 export const getters = {
@@ -75,9 +76,11 @@ export const mutations = {
     console.log('logout ..')
     // this.$cookiz.set('userToken', null)
     // this.$cookiz.set('refreshToken', null)
-    state.username = null
-    state.loggedIn = false
-    this.$authentication.logout()
+    // state.username = null
+    state.user = false
+    // this.$cognitoAuth.signout
+    // redirect('/shop')
+    // this.$authentication.logout()
   },
   islogin(state, isParam) {
     state.loggedIn = isParam
@@ -101,6 +104,18 @@ export const mutations = {
   SET_SESSION(state, { token, name }) {
     state.refreshToken = token
     state.username = name
+  },
+  SET_USER(state, data) {
+    state.user = Object.assign({}, data)
+  },
+  SET_ACCESS_TOKEN(state, token) {
+    state.accessToken = token
+  },
+  SET_ID_TOKEN(state, token) {
+    state.idToken = token
+  },
+  SET_COGNITO_SESSION(state, session) {
+    state.session = session
   },
   // naverlogin(state, naverLogin) {
   //   const that = this
@@ -128,6 +143,29 @@ export const mutations = {
 }
 
 export const actions = {
+  async refreshUser({ commit, dispatch, state }) {
+    try {
+      if (!state.refreshToken) {
+        throw new Error("User isn't logged in")
+      }
+      const { refreshToken, username } = state
+      // console.log('refreshToken', refreshToken)
+      // console.log('username', username)
+      const { userData, session } = await this.$cognitoAuth.refreshTokens(
+        refreshToken,
+        username
+      )
+      const { accessToken, idToken } = this.$cognitoAuth.getTokens(session)
+      commit('SET_USER', userData)
+      commit('SET_ACCESS_TOKEN', accessToken)
+      commit('SET_ID_TOKEN', idToken)
+      commit('SET_COGNITO_SESSION', session)
+    } catch (e) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error(e)
+      }
+    }
+  },
   actionLogin(context, username) {
     console.log(username)
     this.$authentication

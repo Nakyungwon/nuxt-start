@@ -17,6 +17,8 @@ export const getCookie = (cookieName, stringCookie) => {
   try {
     let strCookie = new RegExp('' + cookieName + '[^;]+').exec(stringCookie)
 
+    // console.log('strCookie', strCookie)
+
     strCookie = strCookie ? strCookie[0] : null
 
     return unescape(
@@ -25,4 +27,8 @@ export const getCookie = (cookieName, stringCookie) => {
   } catch (err) {
     return null
   }
+}
+
+export const annotionTest = () => {
+  console.log('annotation Son')
 }

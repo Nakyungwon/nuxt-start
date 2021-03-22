@@ -54,6 +54,7 @@ export default function ({ $axios, store, app, res, req }, inject) {
     const { username, session } = store.state.shop
     console.log(username)
     console.log(session)
+    // cognitoAuth.test()
     // if (session) {
     //   cognitoAuth.initialize(username, session)
     //   cognitoAuth.setRefreshSessionCookie()

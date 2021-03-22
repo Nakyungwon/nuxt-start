@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
-import { encryptData } from '@/utils'
-// import { encryptData } from '@/utils'
+import { encryptData, annotionTest } from '@/utils'
 import {
   CognitoRefreshToken,
   CognitoAccessToken,
@@ -90,7 +89,7 @@ class CognitoAuth {
           }),
         }
       }
-      console.log(getNewSession)
+      // console.log(getNewSession)
       const tokens = getNewSession({
         IdToken: session.idToken.jwtToken,
         RefreshToken: session.refreshToken.token,
@@ -134,6 +133,11 @@ class CognitoAuth {
   //   })
   // }
   //
+  @annotionTest
+  test() {
+    console.log('annotation mother')
+  }
+
   signIn(username, password) {
     try {
       if (!username || !password) {
@@ -147,9 +151,6 @@ class CognitoAuth {
       const authenticationDetails = new AuthenticationDetails(
         authenticationData
       )
-      console.log(tmpCognitoUser)
-      console.log(authenticationDetails)
-      console.log(authenticationDetails)
       return new Promise((resolve, reject) => {
         return tmpCognitoUser.authenticateUser(authenticationDetails, {
           onSuccess: (session) => {
@@ -237,13 +238,14 @@ class CognitoAuth {
   //   this.setDataInCookie(refreshToken, username)
   // }
   //
-  // signOut() {
-  //   try {
-  //     this.removeAllSessionCookies()
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
+  signOut() {
+    try {
+      this.removeAllSessionCookies()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   //
   // getUserDataByToken(accessToken, idToken) {
   //   const {
@@ -317,36 +319,34 @@ class CognitoAuth {
     Cookies.set(user, userdata, { expires: this.expires, domain })
   }
 
-  //
-  // removeDataInCookie() {
-  //   const tokenName = `${this.prefix}t`
-  //   const user = `${this.prefix}n`
-  //   const sessionName = `${this.prefix}s`
-  //   this.removeCookie(tokenName)
-  //   this.removeCookie(user)
-  //   this.removeCookie(sessionName)
-  // }
-  //
-  // removeCookie(name) {
-  //   const options = {
-  //     domain: this.dev ? undefined : this.domain,
-  //   }
-  //   removeCookie(name, options)
-  // }
-  //
-  // removeAllSessionCookies() {
-  //   const name = `${this.$prefix}s`
-  //   this.removeDataInCookie()
-  //   this.removeCookie(name)
-  // }
-  //
+  removeDataInCookie() {
+    const tokenName = `${this.prefix}t`
+    const user = `${this.prefix}n`
+    const sessionName = `${this.prefix}s`
+    this.removeCookie(tokenName)
+    this.removeCookie(user)
+    this.removeCookie(sessionName)
+  }
+
+  getAllCookies() {}
+
+  removeCookie(name) {
+    // const options = {
+    //   domain: this.dev ? undefined : this.domain,
+    // }
+    // removeCookie(name, options)
+  }
+
+  removeAllSessionCookies() {
+    const name = `${this.$prefix}s`
+    this.removeDataInCookie()
+    this.removeCookie(name)
+  }
+
   setRefreshSessionCookie() {
     const name = `${this.prefix}s`
     const expires = new Date(new Date().getTime() + 60 * 60 * 1000)
     const domain = this.dev ? undefined : this.domain
-    console.log(name)
-    console.log(expires)
-    console.log(domain)
     Cookies.set(name, 1, {
       expires,
       domain,
@@ -362,22 +362,23 @@ class CognitoAuth {
   //   return Cookies.get('__staypia__t') && Cookies.get('__staypia__n')
   // }
   //
-  // refreshTokens(RefreshToken, username) {
-  //   return new Promise((resolve, reject) => {
-  //     const tmpCognitoUser = this.getCognitoUser(username)
-  //     tmpCognitoUser.refreshSession(
-  //       new CognitoRefreshToken({ RefreshToken }),
-  //       (error, session) => {
-  //         if (error) {
-  //           reject(error)
-  //         } else {
-  //           this.setCognitoUser(tmpCognitoUser, session)
-  //           resolve({ userData: this.getUserData(session), session })
-  //         }
-  //       }
-  //     )
-  //   })
-  // }
+  refreshTokens(RefreshToken, username) {
+    return new Promise((resolve, reject) => {
+      const tmpCognitoUser = this.getCognitoUser(username)
+      tmpCognitoUser.refreshSession(
+        new CognitoRefreshToken({ RefreshToken }),
+        (error, session) => {
+          if (error) {
+            reject(error)
+          } else {
+            this.setCognitoUser(tmpCognitoUser, session)
+            resolve({ userData: this.getUserData(session), session })
+          }
+        }
+      )
+    })
+  }
+
   //
   // forgotPassword(username) {
   //   const tmpUser = this.getCognitoUser(username)

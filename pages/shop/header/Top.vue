@@ -9,7 +9,7 @@
           }}</a>
         </li>
       </ul>
-      <ul v-if="loggedIn" class="inner_right">
+      <ul v-if="user" class="inner_right">
         <li>
           <a>{{ $store.state.shop.username }} 님 환영합니다.</a>
           <a @click.prevent="decodeToken">decodeToken</a>
@@ -26,9 +26,9 @@
             >{{ menu.name }}
           </a>
         </li>
-        <li>
-          <input v-model="userId" type="text" @change="inputId" />
-        </li>
+        <!--        <li>-->
+        <!--          <input v-model="userId" type="text" @change="inputId" />-->
+        <!--        </li>-->
       </ul>
     </div>
     <div class="menu_2">
@@ -81,6 +81,7 @@ export default {
       'loggedIn',
       'username',
       'isModalViewed',
+      'user',
     ]),
   },
   methods: {

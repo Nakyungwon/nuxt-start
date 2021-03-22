@@ -30,7 +30,7 @@ export default {
       isPopup: false /* 팝업을 통한 연동처리 여부, true 면 팝업 */,
       // loginButton: {
       //   color: 'green',
-      //   type: 1,
+      //   type: 1,a
       //   height: 34,
       // } /* 로그인 버튼의 타입을 지정  http://localhost:5000/shop/callback/kakao */,
     })
@@ -46,6 +46,7 @@ export default {
     },
     userLogin() {
       this.$cognitoAuth.signIn(this.userId, this.userPassword)
+      location.href(window.location.href)
     },
   },
 }
