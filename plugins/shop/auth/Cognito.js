@@ -331,9 +331,10 @@ class CognitoAuth {
   getAllCookies() {}
 
   removeCookie(name) {
-    // const options = {
-    //   domain: this.dev ? undefined : this.domain,
-    // }
+    const options = {
+      domain: this.dev ? undefined : this.domain,
+    }
+    Cookies.remove(decodeURIComponent(name), options)
     // removeCookie(name, options)
   }
 

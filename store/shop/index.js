@@ -78,7 +78,8 @@ export const mutations = {
     // this.$cookiz.set('refreshToken', null)
     // state.username = null
     state.user = false
-    // this.$cognitoAuth.signout
+    this.$cognitoAuth.signOut()
+    location.href = '/shop'
     // redirect('/shop')
     // this.$authentication.logout()
   },

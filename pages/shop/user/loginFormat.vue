@@ -44,9 +44,9 @@ export default {
         redirectUri: `${window.location.origin}/shop/callback/kakao`,
       })
     },
-    userLogin() {
-      this.$cognitoAuth.signIn(this.userId, this.userPassword)
-      location.href(window.location.href)
+    async userLogin() {
+      await this.$cognitoAuth.signIn(this.userId, this.userPassword)
+      location.href = window.location.href
     },
   },
 }
