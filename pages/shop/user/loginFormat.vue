@@ -8,7 +8,10 @@
     <div style="display: flex; align-items: center; justify-content: center">
       <div class="social_button"><button id="naverIdLogin"></button></div>
       <div class="social_button">
-        <img src="@/assets/images/kakao_login/kakao.png" />
+        <img
+          src="@/assets/images/kakao_login/kakao.png"
+          @click.prevent="kakaoLogin"
+        />
       </div>
     </div>
   </div>
@@ -40,6 +43,7 @@ export default {
   },
   methods: {
     kakaoLogin() {
+      console.log(window.location.origin)
       Kakao.Auth.authorize({
         redirectUri: `${window.location.origin}/shop/callback/kakao`,
       })

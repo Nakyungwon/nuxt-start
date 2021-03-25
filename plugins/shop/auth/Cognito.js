@@ -138,6 +138,39 @@ class CognitoAuth {
     console.log('annotation mother')
   }
 
+  socialSignIn(socialId) {
+    try {
+      if (!socialId) {
+        throw new Error('signIn 메서드 파라미터 값을 확인하세요.')
+      }
+      const tmpCognitoUser = this.getCognitoUser(socialId)
+      // const authenticationData = {
+      //   Username: username,
+      //   Password: password,
+      // }
+      // const authenticationDetails = new AuthenticationDetails(
+      //   authenticationData
+      // )
+      return new Promise((resolve, reject) => {
+        return tmpCognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: (session) => {
+            const tokens = this.getTokens(session)
+            console.log(tokens)
+            const { refreshToken } = tokens
+            this.setDataInCookie(refreshToken, username)
+            resolve({ userData: this.getUserData(session), tokens })
+          },
+          onFailure: (err) => {
+            console.error(err)
+            reject(this.errorMessages[err.code])
+          },
+        })
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   signIn(username, password) {
     try {
       if (!username || !password) {
@@ -237,10 +270,12 @@ class CognitoAuth {
   // signInProvider(refreshToken, username) {
   //   this.setDataInCookie(refreshToken, username)
   // }
-  //
-  signOut() {
+  // `
+  signOut(username) {
     try {
       this.removeAllSessionCookies()
+      const tmpUser = this.getCognitoUser(username)
+      tmpUser.signOut()
     } catch (err) {
       console.error(err)
     }

@@ -39,6 +39,7 @@
     "lodash": "^4.17.21",
     "multer": "^1.4.2",
     "nuxt": "^2.14.6",
+    "qs": "^6.10.1",
     "request-promise": "^4.2.6",
     "vee-validate": "^3.4.5",
     "vue2-editor": "^2.10.2"

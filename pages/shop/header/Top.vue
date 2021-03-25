@@ -84,6 +84,9 @@ export default {
       'user',
     ]),
   },
+  mounted() {
+    // Kakao.init('f75e3d96e5687692bf1fc46b5b360d41')
+  },
   methods: {
     ...mapMutations(['inputLoginText']),
     inputId() {
