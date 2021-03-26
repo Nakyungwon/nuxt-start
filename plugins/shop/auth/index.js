@@ -19,7 +19,7 @@ export default function ({ $axios, store, app, res, req }, inject) {
     // errorMessages: require(`@/locales/${locale}/errorMessages.json`),
   })
   // cognitoAuth.initialize()
-  // cognitoAuth.initConfigure()
+  cognitoAuth.initConfigure()
   if (process.server) {
     console.log('servere..')
     // console.log(req.headers.cookie)

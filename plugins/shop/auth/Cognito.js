@@ -11,6 +11,7 @@ import {
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js'
 import Amplify from '@aws-amplify/core'
+import AmplifyAuth from '@aws-amplify/auth'
 // import auth from '@/middleware/shop/user/auth'
 // import AmplifyAuth from '@aws-amplify/auth'
 // import { getAllCookies, addCookie, removeCookie } from './helpers/cookies'
@@ -53,9 +54,35 @@ class CognitoAuth {
     this.setCognitoUser(this.getCognitoUser(username), session)
   }
 
-  initConfigure(config) {
+  initConfigure() {
+    // const isDev = process.env.NODE_ENV === 'development'
+    // const host = process.client ? location.origin : process.env.baseUrl
+    const host = process.client ? window.location.origin : process.env.baseUrl
     // for third party ex) facebook
-    Amplify.configure(config)
+    Amplify.configure({
+      Auth: {
+        // REQUIRED - Amazon Cognito Identity Pool ID
+        // identityPoolId: 'ap-northeast-2:c42e574b-60eb-4471-a68e-35246d216902',
+        mandatorySignIn: true,
+        region: 'ap-northeast-2',
+        userPoolId: process.env.AWS_COGNITO_POOL_ID,
+        userPoolWebClientId: process.env.AWS_COGNITO_CLIENT_ID,
+        storage: process.client ? sessionStorage : null,
+        oauth: {
+          // domain: process.env.AWS_COGNITO_DOMAIN,
+          domain: 'kwna.auth.ap-northeast-2.amazoncognito.com',
+          // scope: ['email', 'openid', 'name'],
+          scope: ['email', 'openid'],
+          redirectSignIn: `${host}/shop/callback/social`,
+          redirectSignOut: `${host}/shop/callback/socialOut`,
+          responseType: 'code',
+          options: {
+            AdvancedSecurityDataCollectionFlag: true,
+          },
+          authenticationFlowType: 'USER_SRP_AUTH',
+        },
+      },
+    })
   }
 
   getCognitoUser(Username) {
@@ -138,38 +165,38 @@ class CognitoAuth {
     console.log('annotation mother')
   }
 
-  socialSignIn(socialId) {
-    try {
-      if (!socialId) {
-        throw new Error('signIn 메서드 파라미터 값을 확인하세요.')
-      }
-      const tmpCognitoUser = this.getCognitoUser(socialId)
-      // const authenticationData = {
-      //   Username: username,
-      //   Password: password,
-      // }
-      // const authenticationDetails = new AuthenticationDetails(
-      //   authenticationData
-      // )
-      return new Promise((resolve, reject) => {
-        return tmpCognitoUser.authenticateUser(authenticationDetails, {
-          onSuccess: (session) => {
-            const tokens = this.getTokens(session)
-            console.log(tokens)
-            const { refreshToken } = tokens
-            this.setDataInCookie(refreshToken, username)
-            resolve({ userData: this.getUserData(session), tokens })
-          },
-          onFailure: (err) => {
-            console.error(err)
-            reject(this.errorMessages[err.code])
-          },
-        })
-      })
-    } catch (err) {
-      console.error(err)
-    }
-  }
+  // socialSignIn(socialId) {
+  //   try {
+  //     if (!socialId) {
+  //       throw new Error('signIn 메서드 파라미터 값을 확인하세요.')
+  //     }
+  //     const tmpCognitoUser = this.getCognitoUser(socialId)
+  //     const authenticationData = {
+  //       Username: username,
+  //       Password: password,
+  //     }
+  //     const authenticationDetails = new AuthenticationDetails(
+  //       authenticationData
+  //     )
+  //     return new Promise((resolve, reject) => {
+  //       return tmpCognitoUser.authenticateUser(authenticationDetails, {
+  //         onSuccess: (session) => {
+  //           const tokens = this.getTokens(session)
+  //           console.log(tokens)
+  //           const { refreshToken } = tokens
+  //           this.setDataInCookie(refreshToken, username)
+  //           resolve({ userData: this.getUserData(session), tokens })
+  //         },
+  //         onFailure: (err) => {
+  //           console.error(err)
+  //           reject(this.errorMessages[err.code])
+  //         },
+  //       })
+  //     })
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
 
   signIn(username, password) {
     try {
@@ -202,6 +229,11 @@ class CognitoAuth {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  federatedSignIn(params) {
+    console.log(params)
+    AmplifyAuth.federatedSignIn(params)
   }
 
   // signUp({

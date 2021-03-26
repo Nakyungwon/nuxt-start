@@ -13,6 +13,12 @@
           @click.prevent="kakaoLogin"
         />
       </div>
+      <div class="social_button">
+        <img
+          src="@/assets/images/google_login/google.jpeg"
+          @click.prevent="googleLogin"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +58,9 @@ export default {
       await this.$cognitoAuth.signIn(this.userId, this.userPassword)
       location.href = window.location.href
     },
+    async googleLogin() {
+      await this.$cognitoAuth.federatedSignIn({ provider: 'Google' })
+    },
   },
 }
 </script>
@@ -66,6 +75,7 @@ button {
   height: 44px;
 }
 #naverIdLogin {
+  cursor: pointer;
 }
 img {
   width: 45px;
@@ -74,6 +84,7 @@ img {
 }
 .social_button {
   width: 45px;
+  cursor: pointer;
   //overflow: hidden;
 }
 </style>
