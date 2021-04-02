@@ -236,63 +236,65 @@ class CognitoAuth {
     AmplifyAuth.federatedSignIn(params)
   }
 
-  // signUp({
-  //   email: username,
-  //   password,
-  //   nationality,
-  //   terms: {
-  //     agree_service = true,
-  //     agree_privacy = true,
-  //     agree_email = false,
-  //     agree_sms = false,
-  //     agree_push = false,
-  //   },
-  // } = {}) {
-  //   const attributeList = [
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:nationality',
-  //       Value: String(nationality),
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'email',
-  //       Value: username,
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:agree_service',
-  //       Value: String(agree_service),
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:agree_privacy',
-  //       Value: String(agree_privacy),
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:agree_email',
-  //       Value: String(agree_email),
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:agree_sms',
-  //       Value: String(agree_sms),
-  //     }),
-  //     new CognitoUserAttribute({
-  //       Name: 'custom:agree_push',
-  //       Value: String(agree_push),
-  //     }),
-  //   ]
-  //   return new Promise((resolve, reject) => {
-  //     this.userPool.signUp(
-  //       username,
-  //       password,
-  //       attributeList,
-  //       null,
-  //       (err, result) => {
-  //         if (err) {
-  //           reject(this.errorMessages[err.code])
-  //         } else {
-  //           resolve(result)
-  //         }
-  //       }
-  //     )
-  //   })
+  signUp({
+    email: username,
+    password,
+    // nationality,
+    terms: {
+      // agree_service = true,
+      // agree_privacy = true,
+      agreeEmail = false,
+      // agree_sms = false,
+      // agree_push = false,
+    },
+  } = {}) {
+    const attributeList = [
+      //   new CognitoUserAttribute({
+      //     Name: 'custom:nationality',
+      //     Value: String(nationality),
+      //   }),
+      //   new CognitoUserAttribute({
+      //     Name: 'email',
+      //     Value: username,
+      //   }),
+      //   new CognitoUserAttribute({
+      //     Name: 'custom:agree_service',
+      //     Value: String(agree_service),
+      //   }),
+      //   new CognitoUserAttribute({
+      //     Name: 'custom:agree_privacy',
+      //     Value: String(agree_privacy),
+      //   }),
+      new CognitoUserAttribute({
+        Name: 'custom:agree_email',
+        Value: String(agreeEmail),
+      }),
+      //   new CognitoUserAttribute({
+      //     Name: 'custom:agree_sms',
+      //     Value: String(agree_sms),
+      //   }),
+      //   new CognitoUserAttribute({
+      //     Name: 'custom:agree_push',
+      //     Value: String(agree_push),
+      //   }),
+    ]
+    return new Promise((resolve, reject) => {
+      this.userPool.signUp(
+        username,
+        password,
+        attributeList,
+        null,
+        (err, result) => {
+          if (err) {
+            reject(this.errorMessages[err.code])
+          } else {
+            resolve(result)
+          }
+        }
+      )
+    })
+  }
+
   // }
   //
   // federatedSignIn(params) {

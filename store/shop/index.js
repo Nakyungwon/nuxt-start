@@ -157,6 +157,7 @@ export const actions = {
         username
       )
       const { accessToken, idToken } = this.$cognitoAuth.getTokens(session)
+      console.log('accessToken', accessToken)
       commit('SET_USER', userData)
       commit('SET_ACCESS_TOKEN', accessToken)
       commit('SET_ID_TOKEN', idToken)

@@ -20,6 +20,7 @@
         />
       </div>
     </div>
+    <div @click.prevent="onSignUp">회원가입</div>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ export default {
     return {
       userId: 'saecomaster',
       userPassword: 'sksmssk12!',
+      isModalViewed: false,
     }
   },
   mounted() {
@@ -44,8 +46,9 @@ export default {
       // } /* 로그인 버튼의 타입을 지정  http://localhost:5000/shop/callback/kakao */,
     })
     naverLogin.init()
-    Kakao.init('f75e3d96e5687692bf1fc46b5b360d41')
-    Kakao.isInitialized()
+    if (!Kakao.isInitialized()) {
+      Kakao.init('f75e3d96e5687692bf1fc46b5b360d41')
+    }
   },
   methods: {
     kakaoLogin() {
@@ -60,6 +63,10 @@ export default {
     },
     async googleLogin() {
       await this.$cognitoAuth.federatedSignIn({ provider: 'Google' })
+    },
+    onSignUp() {
+      console.log('회원가입')
+      this.isModalViewed = true
     },
   },
 }
