@@ -231,6 +231,21 @@ class CognitoAuth {
     }
   }
 
+  confirmRegistration(username, confirmCode) {
+    const tmpCognitoUser = this.getCognitoUser(username)
+    tmpCognitoUser.confirmRegistration(
+      confirmCode,
+      true,
+      function (err, result) {
+        if (err) {
+          alert(err.message || JSON.stringify(err))
+          return
+        }
+        return result
+      }
+    )
+  }
+
   federatedSignIn(params) {
     console.log(params)
     AmplifyAuth.federatedSignIn(params)
@@ -240,43 +255,19 @@ class CognitoAuth {
     email: username,
     password,
     // nationality,
-    terms: {
-      // agree_service = true,
-      // agree_privacy = true,
-      agreeEmail = false,
-      // agree_sms = false,
-      // agree_push = false,
-    },
+    // terms: {},
   } = {}) {
+    console.log(username)
+    console.log(password)
     const attributeList = [
-      //   new CognitoUserAttribute({
-      //     Name: 'custom:nationality',
-      //     Value: String(nationality),
-      //   }),
-      //   new CognitoUserAttribute({
-      //     Name: 'email',
-      //     Value: username,
-      //   }),
-      //   new CognitoUserAttribute({
-      //     Name: 'custom:agree_service',
-      //     Value: String(agree_service),
-      //   }),
-      //   new CognitoUserAttribute({
-      //     Name: 'custom:agree_privacy',
-      //     Value: String(agree_privacy),
-      //   }),
+      // new CognitoUserAttribute({
+      //   Name: 'custom:nationality',
+      //   Value: String(nationality),
+      // }),
       new CognitoUserAttribute({
-        Name: 'custom:agree_email',
-        Value: String(agreeEmail),
+        Name: 'email',
+        Value: username,
       }),
-      //   new CognitoUserAttribute({
-      //     Name: 'custom:agree_sms',
-      //     Value: String(agree_sms),
-      //   }),
-      //   new CognitoUserAttribute({
-      //     Name: 'custom:agree_push',
-      //     Value: String(agree_push),
-      //   }),
     ]
     return new Promise((resolve, reject) => {
       this.userPool.signUp(
@@ -286,6 +277,7 @@ class CognitoAuth {
         null,
         (err, result) => {
           if (err) {
+            console.log(err)
             reject(this.errorMessages[err.code])
           } else {
             resolve(result)

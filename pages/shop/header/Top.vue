@@ -38,28 +38,32 @@
         </li>
       </ul>
     </div>
-    <Modal
-      v-if="isLoginViewed"
+    <ModalArea
+      v-if="isModalViewed"
       @close-modal="vuexFunc('userModal', 'mutations', false)"
     >
       <LoginFormat />
-    </Modal>
-    <Modal v-if="isSignUpViewed">
-      <SignUp />
-    </Modal>
+    </ModalArea>
+    <ModalArea
+      v-if="isSignUpViewed"
+      @close-modal="vuexFunc('siginupModal', 'mutations', false)"
+    >
+      <signUp />
+    </ModalArea>
   </header>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import Modal from '@/pages/shop/modal/modalArea'
+import ModalArea from '@/pages/shop/modal/modalArea'
 import LoginFormat from '@/pages/shop/user/loginFormat'
+import signUp from '@/pages/shop/user/signUp'
 // import { loginddd } from '@/plugins/shop/auth'
 // const { mapState, mapMutations } = createNamespacedHelpers('shop')
 const { mapState, mapMutations } = createNamespacedHelpers('shop')
 export default {
   name: 'Header',
-  components: { LoginFormat, Modal },
+  components: { LoginFormat, ModalArea, signUp },
   data() {
     return {
       userId: '',
@@ -83,7 +87,9 @@ export default {
       'bottom_menus',
       'loggedIn',
       'username',
+      'isModalViewed',
       'isLoginViewed',
+      'isSignUpViewed',
       'user',
     ]),
   },

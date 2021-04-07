@@ -1,5 +1,6 @@
 export const state = () => ({
   isModalViewed: false,
+  isSignUpViewed: false,
   main_products: [
     require('@/assets/images/main/1055748554.jpg'),
     require('@/assets/images/main/1055748554.jpg'),
@@ -64,6 +65,12 @@ export const mutations = {
   userModal(state, param) {
     console.log(param)
     state.isModalViewed = param
+    // console.log(state.isModalViewed)
+  },
+  siginupModal(state, param) {
+    console.log(param)
+    // state.isSignUpViewed = param
+    state.isSignUpViewed = param
     // console.log(state.isModalViewed)
   },
   inputLoginText(state, userId) {

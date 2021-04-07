@@ -25,15 +25,20 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapMutations } = createNamespacedHelpers('shop')
 export default {
   name: 'LoginFormat',
   data() {
     return {
       userId: 'saecomaster',
       userPassword: 'sksmssk12!',
-      isModalViewed: false,
+      // isModalViewed: false,
     }
   },
+  // computed: {
+  //   ...mapState(['isModalViewed', 'isSignUpViewed']),
+  // },
   mounted() {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: 'lLQJ4RNgbF5KTgqpqiLO',
@@ -51,6 +56,8 @@ export default {
     }
   },
   methods: {
+    ...mapState(['isModalViewed', 'isSignUpViewed']),
+    ...mapMutations(['siginupModal', 'userModal']),
     kakaoLogin() {
       console.log(window.location.origin)
       Kakao.Auth.authorize({
@@ -66,7 +73,17 @@ export default {
     },
     onSignUp() {
       console.log('회원가입')
-      this.isModalViewed = true
+      // this.$store.isModalViewed = false
+      // this.$store.isSignUpViewed = true
+      // console.log(this.$store.isModalViewed)
+      // console.log(this.$store.isSignUpViewed)
+
+      // this.$store.state.isModalViewed = false
+      // this.$store.state.isSignUpViewed = true
+      // console.log(this.$store.state.isModalViewed)
+      // console.log(this.$store.state.isSignUpViewed)
+      this.userModal(false)
+      this.siginupModal(true)
     },
   },
 }

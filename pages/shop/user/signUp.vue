@@ -1,9 +1,10 @@
 <template>
   <div>
-    <input v-model="userId" type="text" />
     <input v-model="userEmail" type="text" />
     <input v-model="userPassword" type="password" />
     <button @click.prevent="userSignUp">회원가입</button>
+    <input v-model="confirmCode" type="text" />
+    <button @click.prevent="userConfirm">확인</button>
   </div>
 </template>
 
@@ -13,14 +14,28 @@ export default {
   data() {
     return {
       userId: null,
-      userEmail: null,
-      userPassword: null,
+      userEmail: 'saecomaster@naver.com',
+      userPassword: 'sksmssk12!',
+      confirmCode: '',
     }
   },
   methods: {
-    userSignUp() {
-      // await this.$cognitoAuth.signUp(this.userId, this.userPassword)
+    async userSignUp() {
+      await this.$cognitoAuth.signUp({
+        email: this.userEmail,
+        password: this.userPassword,
+        terms: {
+          agreeEmail: true,
+        },
+      })
       // location.href = window.location.href
+    },
+    async userConfirm() {
+      const res = await this.$cognitoAuth.confirmRegistration(
+        this.userEmail,
+        this.confirmCode
+      )
+      console.log(res)
     },
   },
 }
