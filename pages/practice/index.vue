@@ -32,18 +32,37 @@
         </div>
       </div>
     </header>
+    <!--    <section class="content">-->
+    <!--      <nav>-->
+    <!--        <ul>-->
+    <!--          <li><a href="#">layout1</a></li>-->
+    <!--          <li><a href="#">layout2</a></li>-->
+    <!--          <li><a href="#">layout3</a></li>-->
+    <!--        </ul>-->
+    <!--      </nav>-->
+    <!--      <main>-->
+    <!--        <p>시발 레이아웃 ㅈ 같네</p>-->
+    <!--      </main>-->
+    <!--      <aside>AD</aside>-->
+    <!--    </section>-->
     <section class="content">
-      <nav>
-        <ul>
-          <li><a href="#">layout1</a></li>
-          <li><a href="#">layout2</a></li>
-          <li><a href="#">layout3</a></li>
-        </ul>
-      </nav>
-      <main>
-        <p>시발 레이아웃 ㅈ 같네</p>
-      </main>
-      <aside>AD</aside>
+      <div class="part">
+        <div class="wrapper_carousel">
+          <ul class="carousel">
+            <li>
+              <img src="@/assets/images/practice/mimg01.jpeg" alt="그림없음" />
+            </li>
+          </ul>
+          <div class="direction">
+            <a class="previous">Prev</a>
+            <a class="next">Next</a>
+          </div>
+        </div>
+      </div>
+      <div class="part">그림 베스트</div>
+      <div class="part">실시간 베스트</div>
+      <div class="part">키워드</div>
+      <div class="part">따상</div>
     </section>
     <footer></footer>
   </div>
@@ -88,7 +107,7 @@ li {
   width: 100%;
   //height: 500px;
   display: flex;
-  //flex-direction: row;
+  flex-direction: column;
   //flex-grow: 1;
   //align-items: stretch;
   //justify-content: center;
@@ -104,11 +123,7 @@ li {
 }
 header,
 footer {
-  height: 200px;
-}
-
-header {
-  position: relative;
+  height: 300px;
 }
 
 div {
@@ -121,7 +136,16 @@ div {
   left: 2%;
   font-size: 3rem;
 }
+
+header {
+  position: relative;
+}
+
 .menu {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   a {
     font-size: 12px;
     padding: 0 20px 0 10px;
@@ -130,23 +154,26 @@ div {
   }
 }
 .menu_top {
-  position: absolute;
+  //position: absolute;
   //height: 100%;
   display: flex;
   width: 100%;
   //position: relative;
   //top: 170px;
-  left: 0;
-  top: 0;
+  //left: 0;
+  //top: 0;
+  .menu2 {
+    justify-content: flex-end;
+  }
 }
 .menu_bottom {
-  position: absolute;
+  //position: absolute;
   //height: 100%;
   display: flex;
   width: 100%;
   //position: relative;
-  bottom: 0;
-  left: 0;
+  //bottom: 0;
+  //left: 0;
 }
 ul {
   display: flex;
@@ -157,6 +184,45 @@ ul {
     justify-content: flex-start;
   }
 }
+
+// main
+.part {
+  padding: 0 2% 0 2%;
+  img {
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+  .wrapper_carousel {
+    position: relative;
+  }
+}
+.carousel {
+  position: relative;
+  height: auto;
+  //overflow-x: hidden;
+  li {
+    width: 100%;
+    height: auto;
+  }
+}
+.direction {
+  position: absolute;
+  top: 50%;
+  a {
+    width: 50px;
+    height: 77px;
+  }
+  .previous {
+    background: rgba(255, 255, 255, 0.9)
+      url('~assets/images/practice/controls.png') no-repeat;
+  }
+  .next {
+    background: rgba(255, 255, 255, 0.9)
+      url('~assets/images/practice/controls.png') no-repeat;
+  }
+}
+
 //ul.main1 {
 //  display: flex;
 //  flex-direction: row;
