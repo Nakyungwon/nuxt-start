@@ -15,7 +15,7 @@ export default {
     // })
     // routes.push({
     //   path: '/shop',
-    //   component: resolve(__dirname, 'pages/shop/index.vue'),
+    //   component: resolve(__dirname, 'pages/shop/index3.vue'),
     //   name: 'shop',
     // })
     // routes.push({
@@ -25,7 +25,7 @@ export default {
     // })
     // routes.push({
     //   path: '/index',
-    //   component: resolve(__dirname, 'pages/index.vue'),
+    //   component: resolve(__dirname, 'pages/index3.vue'),
     //   name: 'index',
     // })
     // },

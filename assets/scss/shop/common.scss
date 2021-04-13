@@ -1,17 +1,17 @@
-* {
-  font-size: 13px;
-  font-family: 'Roboto', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.wrapper {
-  padding-left: 5%;
-}
-
-.pointer {
-  cursor: pointer;
-}
+//* {
+//  font-size: 13px;
+//  font-family: 'Roboto', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+//  margin: 0;
+//  padding: 0;
+//}
+//
+//.wrapper {
+//  padding-left: 5%;
+//}
+//
+//.pointer {
+//  cursor: pointer;
+//}
 
 @mixin shop_li($float) {
   float: $float;
