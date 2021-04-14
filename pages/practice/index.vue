@@ -2,40 +2,127 @@
   <div class="wrapper">
     <header>
       <span class="logo">logo</span>
-      <!--      <div class="menu">-->
-      <!--        <div class="menu_top">-->
-      <!--          <ul class="menu1">-->
-      <!--            <li><a href="#">NOTICE</a></li>-->
-      <!--            <li><a href="#">REVIWE</a></li>-->
-      <!--            <li><a href="#">Q&A</a></li>-->
-      <!--            <li><a href="#">EVENT</a></li>-->
-      <!--          </ul>-->
-      <!--          <ul class="menu2">-->
-      <!--            <li><a href="#">JOIN US</a></li>-->
-      <!--            <li><a href="#">LOGIN</a></li>-->
-      <!--            <li><a href="#">ORDER</a></li>-->
-      <!--            <li><a href="#">MY PAGE</a></li>-->
-      <!--            <li><a href="#">CART</a></li>-->
-      <!--          </ul>-->
-      <!--        </div>-->
-      <!--        <div class="menu_bottom">-->
-      <!--          <ul class="menu3">-->
-      <!--            <li><a href="#">BEST 20</a></li>-->
-      <!--            <li><a href="#">NEW 5%</a></li>-->
-      <!--            <li><a href="#">OUTER</a></li>-->
-      <!--            <li><a href="#">TOP</a></li>-->
-      <!--            <li><a href="#">DRESS</a></li>-->
-      <!--            <li><a href="#">BOTTON</a></li>-->
-      <!--            <li><a href="#">ACC</a></li>-->
-      <!--            <li><a href="#">SALE</a></li>-->
-      <!--          </ul>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div class="menu">
+        <div class="menu_top">
+          <ul class="flex_start">
+            <li><a href="#">NOTICE</a></li>
+            <li><a href="#">REVIWE</a></li>
+            <li><a href="#">Q&A</a></li>
+            <li><a href="#">EVENT</a></li>
+          </ul>
+          <ul class="flex_end">
+            <li><a href="#">JOIN US</a></li>
+            <li><a href="#">LOGIN</a></li>
+            <li><a href="#">ORDER</a></li>
+            <li><a href="#">MY PAGE</a></li>
+            <li><a href="#">CART</a></li>
+          </ul>
+        </div>
+        <div class="menu_bottom">
+          <ul class="menu3">
+            <li><a href="#">BEST 20</a></li>
+            <li><a href="#">NEW 5%</a></li>
+            <li><a href="#">OUTER</a></li>
+            <li><a href="#">TOP</a></li>
+            <li><a href="#">DRESS</a></li>
+            <li><a href="#">BOTTON</a></li>
+            <li><a href="#">ACC</a></li>
+            <li><a href="#">SALE</a></li>
+          </ul>
+        </div>
+      </div>
     </header>
     <section>
-      <container></container>
-      <container>s</container>
-      <container>s</container>
+      <container>
+        <div class="img_area">
+          <ul>
+            <li>
+              <img src="@/assets/images/practice/mimg03.jpeg" alt="그림없음" />
+            </li>
+            <li>
+              <img src="@/assets/images/practice/mimg02.jpeg" alt="그림없음" />
+            </li>
+            <li>
+              <img src="@/assets/images/practice/mimg01.jpeg" alt="그림없음" />
+            </li>
+          </ul>
+        </div>
+      </container>
+      <container>
+        <div class="content">
+          <div class="weekly_best">
+            <div class="title"><h3>WEEKLY BEST</h3></div>
+            <div class="sub_menu">
+              <ul>
+                <li><a>OUTER</a></li>
+                <li><a>TOP</a></li>
+                <li><a>DRESS</a></li>
+                <li><a>BOTTOM</a></li>
+                <li><a>ACC</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <ul class="product">
+              <li>
+                <img src="@/assets/images/practice/0005.jpeg" alt="그림없음" />
+              </li>
+              <li>
+                <img src="@/assets/images/practice/0006.jpeg" alt="그림없음" />
+              </li>
+              <li>
+                <img src="@/assets/images/practice/0007.jpeg" alt="그림없음" />
+              </li>
+              <li>
+                <img src="@/assets/images/practice/0008.jpeg" alt="그림없음" />
+              </li>
+              <li>
+                <img src="@/assets/images/practice/0009.jpeg" alt="그림없음" />
+              </li>
+              <li>
+                <img src="@/assets/images/practice/0005.jpeg" alt="그림없음" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </container>
+      <container>
+        <div class="main_bann">
+          <div class="title"><h3>TREND KEYWOARDS</h3></div>
+          <div class="keyword">
+            <ul>
+              <li>#린넨 스터트</li>
+              <li>#썸머 가디건</li>
+              <li>#포켓 티셔츠</li>
+              <li>#셔츠 원피스</li>
+              <li>#가벼운 점프수트</li>
+              <li>#스트라이프</li>
+            </ul>
+          </div>
+          <div class="ban_items">
+            <ul>
+              <li>
+                <img
+                  src="@/assets/images/practice/mbann01.jpeg"
+                  alt="그림없음"
+                />
+              </li>
+              <li>
+                <img
+                  src="@/assets/images/practice/mbann02.jpeg"
+                  alt="그림없음"
+                />
+              </li>
+              <li>
+                <img
+                  src="@/assets/images/practice/mbann03.jpeg"
+                  alt="그림없음"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </container>
     </section>
     <footer>꼬리</footer>
   </div>
@@ -51,6 +138,22 @@ export default {
 * {
   border: solid 1px gray;
 }
+
+.flex_end {
+  justify-content: flex-end;
+}
+.flex_start {
+  justify-content: flex-start;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding: 0;
+}
+
 .wrapper {
   overflow: hidden;
   margin: 0px auto;
@@ -64,10 +167,37 @@ export default {
     margin: 0px auto;
 
     .logo {
-      position: absolute;
-      top: 20px;
-      left: 2%;
+      position: relative;
+      top: 70px;
+      left: 5%;
       font-size: 3rem;
+    }
+    .menu {
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      padding: 0 5%;
+      .menu_top {
+        display: flex;
+        flex-direction: row;
+        ul {
+          display: flex;
+          width: 50%;
+          li {
+            padding: 0 5px;
+          }
+        }
+      }
+      .menu_bottom {
+        display: flex;
+        flex-direction: row;
+        ul {
+          display: flex;
+          li {
+            padding: 0 5px;
+          }
+        }
+      }
     }
   }
 
@@ -79,7 +209,90 @@ export default {
 
     container {
       display: block;
-      height: 350px;
+      position: static;
+      .img_area {
+        position: relative;
+        height: 375px;
+        overflow: hidden;
+        ul {
+          position: relative;
+          li {
+            position: absolute;
+            display: block;
+            width: 100%;
+            img {
+              width: 100%;
+              display: block;
+            }
+          }
+        }
+      }
+      .content {
+        margin-top: 70px;
+        width: 100%;
+        .weekly_best {
+          .title {
+            width: 100%;
+            text-align: center;
+          }
+          .sub_menu {
+            ul {
+              width: 50%;
+              margin: 0px auto;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+            }
+          }
+        }
+        ul.product {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          li {
+            width: 23.5%;
+            padding: 5px;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+      .main_bann {
+        margin-top: 70px;
+        background-color: rgba(150, 150, 150, 0.1);
+        .title {
+          width: 100%;
+          text-align: center;
+        }
+        .keyword {
+          ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+          }
+        }
+        .ban_items {
+          width: 100%;
+          ul {
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-content: stretch;
+            margin: 0 80px 0 80px;
+            li {
+              width: 33.3%;
+              box-sizing: border-box;
+              img {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
