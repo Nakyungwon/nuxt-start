@@ -19,7 +19,7 @@
           </ul>
         </div>
         <div class="menu_bottom">
-          <ul class="menu3">
+          <ul :class="menu_class">
             <li><a href="#">BEST 20</a></li>
             <li><a href="#">NEW 5%</a></li>
             <li><a href="#">OUTER</a></li>
@@ -131,6 +131,37 @@
 <script>
 export default {
   name: 'Index',
+  data() {
+    return {
+      menu_class: 'menu3',
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+    // if (process.browser) {
+    //   console.log(window.innerWidth, window.innerHeight)
+    // }
+  },
+  methods: {
+    handleScroll(event) {
+      // Any code to be executed when the window is scrolled
+      // console.log('aaaa')
+      const element = document.getElementsByClassName('menu_bottom')[0]
+      const offsetY = element.getBoundingClientRect().y
+      if (offsetY < 0) {
+        this.menu_class = 'menu3 fixmenu'
+      } else {
+        this.menu_class = 'menu3'
+      }
+      // const offsetY = window.pageYOffset
+      // if (offsetY > 300) {
+      //   element.setAttribute('class', 'fixmenu')
+      // element.addCla('fixmenu')
+      // }
+      // console.log(document.s)
+      // window.scrollTo(0, top);
+    },
+  },
 }
 </script>
 
@@ -152,6 +183,13 @@ li {
 
 ul {
   padding: 0;
+}
+
+.fixmenu {
+  position: fixed;
+  top: 0;
+  opacity: 1;
+  z-index: 99;
 }
 
 .wrapper {

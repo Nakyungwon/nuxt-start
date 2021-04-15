@@ -20,5 +20,6 @@ module.exports = {
     naver: false,
     Kakao: false,
     AWS: false,
+    window: true,
   },
 }
