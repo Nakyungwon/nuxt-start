@@ -54,33 +54,117 @@
             <div class="title"><h3>WEEKLY BEST</h3></div>
             <div class="sub_menu">
               <ul>
-                <li><a>OUTER</a></li>
-                <li><a>TOP</a></li>
-                <li><a>DRESS</a></li>
-                <li><a>BOTTOM</a></li>
-                <li><a>ACC</a></li>
+                <li><a href="#">OUTER</a></li>
+                <li><a href="#">TOP</a></li>
+                <li><a href="#">DRESS</a></li>
+                <li><a href="#">BOTTOM</a></li>
+                <li><a href="#">ACC</a></li>
               </ul>
             </div>
           </div>
           <div>
             <ul class="product">
               <li>
-                <img src="@/assets/images/practice/0005.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0005.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
-                <img src="@/assets/images/practice/0006.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0006.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
-                <img src="@/assets/images/practice/0007.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0007.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
-                <img src="@/assets/images/practice/0008.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0008.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
-                <img src="@/assets/images/practice/0009.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0009.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
               <li>
-                <img src="@/assets/images/practice/0005.jpeg" alt="그림없음" />
+                <div class="info">
+                  <div class="thumnail">
+                    <img
+                      src="@/assets/images/practice/0005.jpeg"
+                      alt="그림없음"
+                    />
+                  </div>
+                  <div class="description">
+                    <ul>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                      <li>상품 설명</li>
+                    </ul>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
@@ -292,8 +376,38 @@ ul {
           li {
             width: 23.5%;
             padding: 5px;
-            img {
+            div.info {
               width: 100%;
+              position: relative;
+              &:hover {
+                div.description {
+                  opacity: 1;
+                  bottom: 10%;
+                }
+              }
+              div.thumnail {
+                img {
+                  width: 100%;
+                }
+              }
+              div.description {
+                width: 90%;
+                position: absolute;
+                bottom: 5%;
+                border-radius: 12px;
+                margin: 0 5%;
+                opacity: 0;
+                transition: 0.3s;
+
+                ul {
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  li {
+                    width: 100%;
+                  }
+                }
+              }
             }
           }
         }
