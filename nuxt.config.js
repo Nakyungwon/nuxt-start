@@ -153,6 +153,7 @@ export default {
       },
     },
     // vendor: ['~/plugins/shop/auth'],
+    vendor: ['lodash'],
     // transpile: ['vee-validate/dist/rules', 'vuetify/lib', 'tiptap-vuetify'],
   },
   optimization: {

@@ -19,7 +19,8 @@
           </ul>
         </div>
         <div class="menu_bottom">
-          <ul :class="menu_class">
+          <!--          <ul class="menu3" :class="menu_class">-->
+          <ul class="menu3" :class="{ fixmenu: isActive }">
             <li><a href="#">BEST 20</a></li>
             <li><a href="#">NEW 5%</a></li>
             <li><a href="#">OUTER</a></li>
@@ -33,22 +34,38 @@
       </div>
     </header>
     <section>
-      <container>
+      <div class="container">
         <div class="img_area">
           <ul>
-            <li>
-              <img src="@/assets/images/practice/mimg03.jpeg" alt="그림없음" />
+            <li class="caraselImgArea caraselActive">
+              <img
+                class="caraselImg"
+                src="@/assets/images/practice/mimg03.jpeg"
+                alt="그림없음"
+              />
             </li>
-            <li>
-              <img src="@/assets/images/practice/mimg02.jpeg" alt="그림없음" />
+            <li class="caraselImgArea">
+              <img
+                class="caraselImg"
+                src="@/assets/images/practice/mimg02.jpeg"
+                alt="그림없음"
+              />
             </li>
-            <li>
-              <img src="@/assets/images/practice/mimg01.jpeg" alt="그림없음" />
+            <li class="caraselImgArea">
+              <img
+                class="caraselImg"
+                src="@/assets/images/practice/mimg01.jpeg"
+                alt="그림없음"
+              />
             </li>
           </ul>
+          <div class="direction">
+            <a class="previous" @click.prevent="caraselImg('prev')">Prev</a>
+            <a class="next" @click.prevent="caraselImg('next')">Next</a>
+          </div>
         </div>
-      </container>
-      <container>
+      </div>
+      <div class="container">
         <div class="content">
           <div class="weekly_best">
             <div class="title"><h3>WEEKLY BEST</h3></div>
@@ -169,8 +186,8 @@
             </ul>
           </div>
         </div>
-      </container>
-      <container>
+      </div>
+      <div class="container">
         <div class="main_bann">
           <div class="title"><h3>TREND KEYWOARDS</h3></div>
           <div class="keyword">
@@ -206,44 +223,72 @@
             </ul>
           </div>
         </div>
-      </container>
+      </div>
     </section>
     <footer>꼬리</footer>
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   name: 'Index',
   data() {
     return {
       menu_class: 'menu3',
+      isActive: false,
     }
   },
   mounted() {
+    this.resiseTest()
     window.addEventListener('scroll', this.handleScroll)
-    // if (process.browser) {
-    //   console.log(window.innerWidth, window.innerHeight)
-    // }
+    window.addEventListener('resize', this.resiseTest)
+    setInterval(() => this.caraselImg(), 5000)
   },
   methods: {
     handleScroll(event) {
-      // Any code to be executed when the window is scrolled
-      // console.log('aaaa')
       const element = document.getElementsByClassName('menu_bottom')[0]
       const offsetY = element.getBoundingClientRect().y
       if (offsetY < 0) {
-        this.menu_class = 'menu3 fixmenu'
+        this.isActive = true
       } else {
-        this.menu_class = 'menu3'
+        this.isActive = false
       }
-      // const offsetY = window.pageYOffset
-      // if (offsetY > 300) {
-      //   element.setAttribute('class', 'fixmenu')
-      // element.addCla('fixmenu')
-      // }
-      // console.log(document.s)
-      // window.scrollTo(0, top);
+    },
+    resiseTest(event) {
+      const element = document.getElementsByClassName('caraselImg')[0]
+      const imgHeight = element.offsetHeight + 'px'
+      document.getElementsByClassName('img_area')[0].style.height = imgHeight
+    },
+    caraselImg(param) {
+      const carealArealist = document.getElementsByClassName('caraselImgArea')
+      let activeIdx = 0
+      carealArealist.forEach((obj, idx) => {
+        if (_.includes(obj.getAttribute('class'), 'caraselActive')) {
+          activeIdx = idx
+        }
+      })
+      if (param === 'next') {
+        carealArealist[activeIdx].classList.toggle('caraselActive')
+        if (activeIdx === carealArealist.length - 1) {
+          carealArealist[0].classList.toggle('caraselActive')
+        } else {
+          carealArealist[activeIdx].nextElementSibling.classList.toggle(
+            'caraselActive'
+          )
+        }
+      } else {
+        carealArealist[activeIdx].classList.toggle('caraselActive')
+        if (activeIdx === 0) {
+          carealArealist[carealArealist.length - 1].classList.toggle(
+            'caraselActive'
+          )
+        } else {
+          carealArealist[activeIdx].previousElementSibling.classList.toggle(
+            'caraselActive'
+          )
+        }
+      }
     },
   },
 }
@@ -267,6 +312,12 @@ li {
 
 ul {
   padding: 0;
+}
+
+.caraselActive {
+  //z-index: 2;
+  opacity: 1 !important;
+  transition: 1s;
 }
 
 .fixmenu {
@@ -329,7 +380,7 @@ ul {
     padding: 0px 5%;
     width: 100%;
 
-    container {
+    .container {
       display: block;
       position: static;
       .img_area {
@@ -342,10 +393,37 @@ ul {
             position: absolute;
             display: block;
             width: 100%;
+            opacity: 0;
             img {
               width: 100%;
               display: block;
             }
+          }
+        }
+        .direction {
+          position: relative;
+          top: 50%;
+          a {
+            width: 50px;
+            height: 77px;
+          }
+          .previous {
+            text-indent: -9999px;
+            position: absolute;
+            left: 0;
+            margin-top: -39px;
+            margin-left: 20px;
+            background: rgba(255, 255, 255, 0.9)
+              url('~assets/images/practice/controls.png') no-repeat 10px -77px;
+          }
+          .next {
+            text-indent: -9999px;
+            position: absolute;
+            right: 0;
+            margin-top: -39px;
+            margin-right: 20px;
+            background: rgba(255, 255, 255, 0.9)
+              url('~assets/images/practice/controls.png') no-repeat -40px -77px;
           }
         }
       }
